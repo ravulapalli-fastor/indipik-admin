@@ -1,0 +1,59 @@
+.mainContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+}
+
+.mainTitle {
+    color: var(--text-color-90, #333);
+    font-family: Lato;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 140%;
+}
+.addNewPlusFilterContainer {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+.dataTypesFilter {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #EDEDED;
+}
+
+.dataTypes {
+    display: flex;
+    width: fit-content;
+    gap: 1rem;
+}
+.defaultFilter {
+    display: flex;
+    padding: 10px 10px 10px 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color-30, #999);
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: -0.36px;
+    cursor: pointer;
+    border-bottom: 5px solid white;
+}
+.activeFilter {
+    border-bottom: 5px solid var(--Orange-gradient, #FF8F16);
+    background: var(--White, #FFF);
+    color: var(--gray-600, #2C3444);
+    font-weight: 600;
+}

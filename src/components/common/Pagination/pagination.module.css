@@ -1,0 +1,56 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap:.3rem;
+    margin:2rem 0;
+}
+
+
+.page_numbers {
+    gap: .3rem;
+    color: var(--light-black1);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#button_arrow,.page{
+    display: flex;
+    width: 32px;
+    height: 32px;
+    padding: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--neutral-400, #F5F5F5);
+    background: var(--neutral-white, #FFF);
+    color: var(--neutral-950, #6B7B8F);
+    font-family: IBM Plex Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.1px;
+}
+#button_arrow{
+    color: var(--neutral-800, #A5ACBA);
+    font-family: IBM Plex Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.1px;
+    padding: 10px 4px;
+}
+.btn {
+    border: none;
+    background: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+}

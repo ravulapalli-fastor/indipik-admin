@@ -1,0 +1,46 @@
+.sideNavbarContainer{
+    width:268px;
+    height:100vh;
+    overflow-y:auto;
+}
+.logoImage{
+    width:122px;
+    height:55px;
+    margin:auto;
+    margin-bottom: 2rem;
+}
+.logoImage img{
+    width:100%;
+}
+.sidebarMenu{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap:.8rem;
+    padding:8px 13px;
+    margin:0 2rem;
+    margin-bottom: 0.8rem;
+}
+.activeMenu{
+    background: var(--Orange-gradient, linear-gradient(180deg, #FF8F16 0%, #EB5C09 100%));
+    border-radius: 30px;
+}
+.sidebarMenu p{
+    color: #C8C8C8;
+    font-family: Lato;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+}
+.sidebarMenu img{
+    width: 24px;
+    height: 24px;
+}
+.activeMenu img{
+    filter: brightness(100);
+}
+.activeMenu p{
+    color:white;
+    font-weight: 700;
+}

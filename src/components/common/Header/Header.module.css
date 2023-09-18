@@ -1,0 +1,44 @@
+.navbarContainer{
+    height:80px;
+    width:100%;
+    display:flex;
+    justify-content: flex-end;
+    position:relative
+}
+.profileContainer{
+    display:flex;
+    justify-content: flex-end;
+    gap:.5rem;
+    align-items: center;
+    padding-right:2.5rem;
+}
+.profileContainer img:nth-child(1){
+    width: 32px;
+    height: 32px;
+}
+.userName{
+    color: var(--Dark-black, #222);
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+}
+.profileContainer img:nth-last-child(1) {
+    width: 18px;
+    height: 18px;
+    margin-top: 5px;
+    cursor:pointer;
+}
+.dropdown{
+    display:none;
+    position:absolute;
+    top:0;
+    right:0;
+}
+.profileContainer img:nth-last-child(1):hover {
+    transform: scale(1.1);
+}
+.profileContainer img:nth-last-child(1):hover .dropdown{
+    display:block !important;
+}

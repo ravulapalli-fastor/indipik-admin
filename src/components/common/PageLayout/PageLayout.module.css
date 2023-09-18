@@ -1,0 +1,25 @@
+.mainContainer{
+    width:100%;
+    display:flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.innerContainer{
+    width:calc(100vw - 268px);
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.childContainer{
+   width: 100%; 
+   background: #FAFBFC;
+   padding:1.5rem;
+   height:calc(100vh - 80px - 24px)
+}
+.childInnerContainer{
+    border-radius: 8px;
+    border: 1px solid var(--Background-color, #EDEDED);
+    background: var(--White, #FFF);
+    padding:1rem 1.5rem;
+}

@@ -1,0 +1,54 @@
+.modalWrapper{
+    position:absolute;
+    z-index:999999;
+    top:0;
+    height:100vh;
+    width:100vw;
+    background: var(--text-color-90, #3333335f);
+    display:flex;
+    justify-content: flex-end;
+}
+.dataContainer{
+    background: var(--White, #fff);
+    box-shadow: -16px 0px 12px 0px rgba(57, 59, 66, 0.10);
+    width:380px;
+    height:100%;
+    opacity:1;
+    position:absolute;
+    padding:1rem 0;
+}
+.goBackContainer{
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap:.8rem;
+    padding:0 1rem 1rem;
+    border-bottom:1px solid #DAE0E6;
+}
+.goBackContainer img{
+    margin-top: 4px;
+    cursor: pointer;
+}
+.goBackContainer p{
+    color: var(--gray-600, #2C3444);
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.36px;
+}
+.submitContainer{
+    position:fixed;
+    bottom:0;
+    right:0;
+    z-index:9999999999;
+    width:380px;
+    padding:1rem 0 1.5rem;
+    background: #fff;
+    display:flex;
+    justify-content: center;
+}
+.submitContainer button{
+    padding: 11px 87px;
+}

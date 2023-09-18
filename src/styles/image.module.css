@@ -1,0 +1,130 @@
+.outerContainer{
+    position:relative;
+}
+.container {
+    width: 100%;
+}
+
+/* modal details */
+.modalDetails{
+    height:100%;
+    padding:0 1rem 1rem;
+    overflow-y:auto;
+}
+.title{
+    color: #272D37;
+    text-align: left;
+    font-family: Lato;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: normal;
+    margin: 1rem 0;
+}
+.filePreviewContainer{
+    width:100%;
+    height:300px;
+}
+.imagePreview{
+    width: 100%;
+    height: 100%;
+    border:1px solid;
+    position:relative;
+}
+.mainImg{
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+}
+.previewImg{
+    width:36px;
+    height:36px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform: translate3d(-50%,-50%,1px);
+    padding:.5rem;
+    border-radius:50%;
+    background: #272D37;
+}
+.detailsContainer{
+    border-radius: 6px;
+    border: 1px solid var(--neutral-400, #F5F5F5);
+    background: var(--neutral-100, #F8F9FB);
+    display: flex;
+    padding: 16px 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width:100%;
+}
+.detailsContainer tr{
+    width:100%;
+    display:flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap:4%;
+    margin-bottom: 0.8rem;
+}
+.detailsContainer td{
+    color: var(--gray-200, #384255);
+    font-family: Lato;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height:140%;
+    letter-spacing: -0.1px;
+    width:48%;
+}
+.detailsContainer tr td:nth-child(1){
+    font-weight: 500;
+}
+.detailsContainer tr td:nth-child(2) {
+    text-align: right;
+}
+.keywordsInnerContainer {
+    border-radius: 6px;
+    border: 1px solid var(--neutral-400, #F5F5F5);
+    background: var(--neutral-100, #F8F9FB);
+    display: flex;
+    padding: 16px 15px;
+    gap: 10px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.tab{
+    width:fit-content;
+    display:flex;
+    gap:.8rem;
+    align-items: center;
+    color: #787878;
+    font-family: Lato;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    border-radius: 2px;
+    border: 1px solid #DDD;
+    padding: .3rem .8rem;
+}
+.tab img{
+    width: 8px;
+    height: 8px;
+    cursor: pointer;
+}
+.removeContainer button{
+    display: flex;
+    padding: 11px 17px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    border: 1px solid var(--Error, #E14444);
+    color: var(--Error, #E14444);
+    text-align: center;
+    font-family: Lato;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+    cursor: pointer;
+}
