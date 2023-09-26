@@ -10,7 +10,7 @@ import dummyImg from "../assets/dummyImg.svg";
 import crossImg from "../assets/cross.svg";
 import TopBar from '../components/common/TopBar/TopBar'
 import { useDispatch, useSelector } from 'react-redux'
-import { getFileDetails } from '../redux/Slice/file_details'
+import { getFileDetails } from '../redux/slice/file_details'
 
 export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);

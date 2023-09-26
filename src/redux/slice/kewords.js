@@ -4,12 +4,10 @@ import instance from "../../axios/config";
 
 const initialState = {
   keywords: false,
-  KeywordData: {},
+  KeywordData: [],
   keywordsLoading: false,
   keywordsErrorMessage: null,
-  verification: false,
-  verificationLoading: false,
-  verificationErrorMessage: null,
+  pages:null
 };
 
 
@@ -19,9 +17,9 @@ export function getkeywords(payload) {
   return async (dispatch) => {
     dispatch(getkeywordsData());
     try {
-      let result = await instance.get(`/get/keywords?type=IMAGE&page_no=1`);
+      let result = await instance.get(`/get/keywords?page_no=1`);
       
-      dispatch(getkeywordsDataSuccess(true));
+      dispatch(getkeywordsDataSuccess(result));
       console.log("first keywords", result);
     //   toast.success(result?.message || "OTP send Successfully", {toastId:"otpsendId"});
     } catch (error) {
@@ -43,9 +41,10 @@ export function getkeywords(payload) {
     },
     getkeywordsDataSuccess: (state, { payload }) => {
       state.keywords = true;
-      state.KeywordData=payload;
+      state.KeywordData=payload?.data?.data?.results;
       state.keywordsLoading = false;
       state.keywordsErrorMessage = null;
+      state.pages=payload?.data?.total_pages;
     },
     getkeywordsDataFailure: (state, { paylaod }) => {
       state.keywords = false;

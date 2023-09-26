@@ -5,7 +5,7 @@ import { PageLayout } from '../components/common/PageLayout/PageLayout'
 import DetailsTable from '../components/DetailsTable/DetailsTable'
 import Modal from '../components/Modal/Modal';
 import FilterDropdown from "../components/FilterDropdown/FilterDropdown";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import dummyImg from "../assets/dummyImg.svg";
 import previewImg from "../assets/preview.svg";
 import crossImg from "../assets/cross.svg";
@@ -13,6 +13,8 @@ import deleteImg from "../assets/delete.svg";
 import TopBar from '../components/common/TopBar/TopBar'
 import style from "../styles/Table.module.css";
 import chevronRight from "../assets/chevron-down.svg";
+import { useDispatch, useSelector } from 'react-redux'
+import { getkeywords } from '../redux/slice/kewords'
 
 export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);
@@ -20,6 +22,16 @@ export default function index() {
   const [idSelected,setIdSelected]=useState(null);
   const [newKeywordsAdded,setNewKeywordsAdded]=useState([]);
   const tableHeaders=["S.No","Name","Creator Name","Created On","Action"];
+  const {KeywordData}=useSelector((state)=>state.keywordReducer);
+  const dispatch=useDispatch();
+  let serialNo=0;
+
+  useEffect(()=>{
+    const payload={page_no:1};
+    console.log(payload,'payload details')
+    dispatch(getkeywords(payload))
+  },[]);
+  
   return (
     <div className={styles.outerContainer}>
      <PageLayout>
@@ -39,11 +51,14 @@ export default function index() {
               </tr>
             </thead>
             <tbody>
+              {KeywordData?.map((item,index)=>{
+                serialNo+=index;
+                return(
               <tr>
-                <td>1</td>
-                <td>Happy </td>
-                <td>Aryan Sharma</td>
-                <td>April 20, 2023</td>
+                <td>{serialNo}</td>
+                <td>{item?.name}</td>
+                <td>{item?.admin?.name}</td>
+                <td>{new Date(+item?.created_at).toLocaleDateString('en-IN')}</td>
                 <td >
                   <Image src={chevronRight} alt="" width={50} height={50} 
                   onClick={()=>{
@@ -53,6 +68,7 @@ export default function index() {
                   />
                 </td>
               </tr>
+              )})}
             </tbody>
           </table>  
         </div>       
