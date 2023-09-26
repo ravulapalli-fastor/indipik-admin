@@ -15,11 +15,14 @@
    width: 100%; 
    background: #FAFBFC;
    padding:1.5rem;
-   height:calc(100vh - 80px - 24px)
+   height:calc(100vh - 80px - 24px);
+
 }
 .childInnerContainer{
     border-radius: 8px;
     border: 1px solid var(--Background-color, #EDEDED);
     background: var(--White, #FFF);
     padding:1rem 1.5rem;
+    height:100%;
+    overflow:scroll;
 }

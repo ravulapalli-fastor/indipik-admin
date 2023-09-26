@@ -68,11 +68,13 @@ export default function index() {
               <tr>
                 <td>Name</td>
                 <td>Aryan Sharma</td>
-                <td>Total Items Uploaded</td>
               </tr>
               <tr>
                 <td>Joined On</td>
                 <td>12-09-23</td>
+              </tr>
+              <tr>
+                <td>Total Items Uploaded</td>
                 <td>5</td>
               </tr>
             </table>

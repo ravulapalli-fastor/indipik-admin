@@ -9,7 +9,7 @@ import TopBar from '../components/common/TopBar/TopBar'
 
 export default function Home() {
   const [currentPage,setcurrentPage]=useState(1);
-  const [filterSelected,setFilterSelected]=useState("Images")
+  const [filterSelected,setFilterSelected]=useState("Images");
   return (
      <PageLayout>
       <div className={styles.container}>
@@ -32,6 +32,7 @@ export default function Home() {
        setFilterSelected={setFilterSelected}
        titleOptions={["Images","Videos"]}
        filterSelected={filterSelected}
+       showFilter={false}
       />         
       <div className={styles.detailsTable}>
           <table>

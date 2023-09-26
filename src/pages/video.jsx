@@ -5,16 +5,26 @@ import { PageLayout } from '../components/common/PageLayout/PageLayout'
 import DetailsTable from '../components/DetailsTable/DetailsTable'
 import Modal from '../components/Modal/Modal';
 import FilterDropdown from "../components/FilterDropdown/FilterDropdown";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import dummyImg from "../assets/dummyImg.svg";
 import crossImg from "../assets/cross.svg";
 import TopBar from '../components/common/TopBar/TopBar'
+import { useDispatch, useSelector } from 'react-redux'
+import { getFileDetails } from '../redux/Slice/file_details'
 
 export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);
   const [idSelected,setIdSelected]=useState("");
   const [filterSelected,setFilterSelected]=useState('InReview');
   const [selectedOption,setSelectedOption]=useState('Reject');
+  const {fileData}=useSelector((state)=>state.fileReducer);
+  const dispatch=useDispatch();
+  useEffect(()=>{
+    const payload={type:'VIDEO',page_no:1};
+    console.log(payload,'payload details')
+    dispatch(getFileDetails(payload))
+  },[]);
+  
   return (
     <div className={styles.outerContainer}>
      <PageLayout>
@@ -26,6 +36,7 @@ export default function index() {
       />      
       <div className={styles.container}>
         <DetailsTable
+        data={fileData}
         setIsModalOpen={setIsModalOpen}
         setIdSelected={setIdSelected}
         tableHeaders={["S.No","Video Name","Contributor Name","Uploaded On","Status","Action"]}

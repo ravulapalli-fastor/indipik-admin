@@ -11,6 +11,7 @@ const Modal = ({
     isFooterCta=true,
     children="children"
 }) => {
+
   return <div className={styles.modalWrapper}>
     <div className={styles.dataContainer}>
         <div className={styles.goBackContainer}>

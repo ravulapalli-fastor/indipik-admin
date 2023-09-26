@@ -40,7 +40,6 @@ const TopBar = ({
           >
             {option}
         </div>
-
         ))}
       </div>
     </div>

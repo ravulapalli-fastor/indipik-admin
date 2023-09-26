@@ -3,7 +3,8 @@
     width:100%;
     display:flex;
     justify-content: flex-end;
-    position:relative
+    position:relative;
+    border-bottom: 1px solid lightgray;
 }
 .profileContainer{
     display:flex;

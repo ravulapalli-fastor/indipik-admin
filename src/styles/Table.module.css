@@ -6,7 +6,10 @@
 
 .tableContainer tr,
 .tableContainer table {
-    width: 100%
+    width: 100%;
+}
+.tableContainer table{
+    height: 50vh;
 }
 
 .tableContainer thead {
@@ -35,7 +38,12 @@
 .tableContainer th:nth-child(2),.tableContainer th:nth-child(3) {
     /* width: 25%; */
 }
-
+/* .tableContainer tbody{
+    height:40vh;
+    max-height:40vh;
+    overflow-y: scroll;
+    border:1px solid red
+} */
 .tableContainer td {
     color: var(--gray-200, #384255);
     font-family: Lato;
@@ -45,7 +53,8 @@
     line-height: 18px;
     letter-spacing: -0.1px;
     text-align: center;
-    margin: 1rem auto
+    margin: 1rem auto;
+    max-width:200px
 }
 
 .tableContainer tr td:nth-child(2) {
