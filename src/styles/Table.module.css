@@ -18,7 +18,7 @@
 
 .tableContainer th {
     color: var(--gray-950, #151B28);
-    font-family: Lato;
+    
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
@@ -46,7 +46,7 @@
 } */
 .tableContainer td {
     color: var(--gray-200, #384255);
-    font-family: Lato;
+    
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -65,7 +65,7 @@
     overflow: hidden;
     color: var(--gray-200, #384255);
     text-overflow: ellipsis;
-    font-family: Lato;
+    
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -89,7 +89,7 @@
     background: var(--success-50, #F0FAF0);
     color: var(--success-600, #41AE49);
     text-align: center;
-    font-family: Lato;
+    
     font-size: 14px;
     font-style: normal;
     font-weight: 400;

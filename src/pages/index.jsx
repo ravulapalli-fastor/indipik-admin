@@ -49,7 +49,7 @@ const getDashboardTitle=(key)=>{
    return dashboardTitle?.find(data=>data.key==key)?.title
 };
   useEffect(()=>{
-    !localStorage?.getItem("adminToken") && router.push("/login");
+    // !localStorage?.getItem("adminToken") && router.push("/login");
     dispatch(getDashboardDetails());
   },[]);
   useEffect(()=>{

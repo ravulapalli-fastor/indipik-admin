@@ -15,7 +15,7 @@
 .title {
     color: #272D37;
     text-align: left;
-    font-family: Lato;
+    
     font-size: 14px;
     font-style: normal;
     font-weight: 550;
@@ -50,7 +50,7 @@
 
 .detailsContainer td {
     color: var(--gray-200, #384255);
-    font-family: Lato;
+    
     font-size: 14px;
     font-style: normal;
     font-weight: 400;

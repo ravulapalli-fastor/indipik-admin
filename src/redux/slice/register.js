@@ -21,7 +21,7 @@ export function adminRegister(paylaod) {
       result = result.data;
       dispatch(getregisterDataSuccess(true));
       console.log("first register", result);
-      toast.success(result?.message || "OTP send Successfully", {toastId:"otpsendId"});
+      toast.success(result?.data?.message || "OTP send Successfully", {toastId:"otpsendId"});
     } catch (error) {
       const message = error.response.data?.message || "Something went wrong";
       dispatch(getregisterDataFailure(message));
@@ -37,7 +37,7 @@ export function verifyRegisterOtp(paylaod) {
         paylaod,
       );
       console.log("otp verify", result);
-      toast.success(result?.message || "Login Successfully!", {toastId:"verifyOtpsendId"});
+      toast.success(result?.data?.message || "OTP verified!", {toastId:"verifyOtpsendId"});
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong";
       dispatch(getregisterDataFailure(message));
@@ -53,7 +53,7 @@ export function resendRegisterOtp(paylaod) {
         paylaod,
       );
       console.log("otp resend ", result);
-      toast.success(result?.message || "OTP resend Successfully!", {toastId:"verifyOtpsendId"});
+      toast.success(result?.message || "OTP resend successfully!", {toastId:"resendOtpsendId"});
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong";
       dispatch(getregisterDataFailure(message));

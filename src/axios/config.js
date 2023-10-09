@@ -16,7 +16,7 @@ if (typeof window !== 'undefined') {
 // Request Interceptor  localStorage.getItem("adminToken") ||
 instance.interceptors.request.use(
   (config) => {
-    config.headers["Authorization"] = `Bearer ${token}`;
+    config.headers["Authorization"] = `Bearer ${localStorage.getItem("adminToken")}`;
     return config;
   },
   (error) => {
@@ -32,7 +32,7 @@ instance.interceptors.response.use(
   (error) => {
     const message = error.response.data?.message || "Something went wrong";
     toast.error(message);
-    return Promise.reject(error);
+    return Promise.reject(error,{toastId:"configId"});
   }
 );
 

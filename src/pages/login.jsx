@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import eyes from "../assets/Eyes.svg";
 import eye_hide from "../assets/eye_hide.svg";
+import { toast } from "react-toastify";
 
 
 const index = () => {
@@ -28,14 +29,7 @@ const index = () => {
   const dispatch=useDispatch();
   const router=useRouter();
 
-  // const handleSubmit=(e)=>{
-  //  e.preventDefault();
-  //  dispatch(adminLogin({email:email,password:password}))
-  //  .then((res)=>{
-  //   console.log(res,'res login')
-  //   login && router.replace('/');
-  //  })
-  // }
+
   const handleData=(e)=>{
     let {name,value}=e.target;
     setEmail(value);
@@ -47,32 +41,21 @@ const index = () => {
 
   const handleSignin=async()=>{
     if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
-        try{
           await dispatch(adminLogin({
             email:email,password:password
           })).then((res)=>{
-              if(res.payload.result.status){
-                        toast.success("Successfully Sign in!");
-                        router.push(`/`);
-                      }else{
-                        toast.error(res.payload.result.message)
-                      }          
+            toast.success("Successfully Sign in!",{toastId:'loginId'});
+            router.push(`/`);
           })
-        }catch(e){
+        .catch((e)=>{
           console.log(e,"error")
-        }
-        console.log("Success");
-      
+        })
     }else{
       setErrType("email");
       if(email==="") setErrText("Please enter your email id");
       else setErrText("Email Id is incorrect, please enter correct email");
     }
   }
-  useEffect(() => {
-    login && router.push('/')
-  }, [login]);
-
 
   return (
     <div className={style.login_main_container}>

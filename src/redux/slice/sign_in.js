@@ -60,7 +60,7 @@ export function forgotLoginPassword(paylaod) {
         paylaod,
       );
       console.log("otp resend ", result);
-      toast.success(result?.message || "OTP resend Successfully!", {toastId:"verifyOtpsendId"});
+      toast.success(result?.message || "OTP resend Successfully!", {toastId:"forgotOtpsendId"});
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong";
       dispatch(getregisterDataFailure(message));

@@ -96,9 +96,9 @@ const index = () => {
                     await dispatch(adminRegister(payload))
                     .then((res)=>{
                       // if(res.payload.status){
-                        // setIsRegister(false);
-                        toast.success("Successfully Signup!");
-                        router.push("/login");
+                        setIsRegister(false);
+                        // toast.success("Successfully Signup!");
+                        // router.push("/login");
                       // }else{
                       //   toast.error(res.payload.message)
                       // }
@@ -149,16 +149,16 @@ const handleEmailResend=async()=>{
     try{
       await dispatch(verifyRegisterOtp({
         email:registerdata?.email,
-        email_otp:finalemailOtp,
+        email_otp:emailotp,
       }))
       .then((res)=>{
-        if(res.payload.status) {
+        // if(res.payload.status) {
         router.push("/login");
-        } 
-        else {
-          setErrText(res.payload.message);
-          setErrType("response")
-        }
+        // } 
+        // else {
+        //   setErrText(res.payload.message);
+        //   setErrType("response")
+        // }
       })
     }catch(e){
       console.log("error",e);

@@ -8,27 +8,30 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { IsAuth } from "../../../redux/slice/sign_in";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 
 export const Header = () => {
   const [isDropdown,setIsDropdown]=useState(false);
-  // const {userData}=useSelector((s)=>s.signInReducer);
   const [userData,setuserData]=useState(null)
-  const dispatch=useDispatch();
   const router=useRouter();
 
   const handleLogout=()=>{
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminData');
+    localStorage.clear();
     setuserData(null);
     setIsDropdown(false);
+    toast.success('Logout Successfully!');
+    router.push("/login")
   }
     const dropdownRef = useOnclickOutside(() => {
         setIsDropdown(false);
     });
     
   useEffect(()=>{
-    localStorage.getItem('adminData') ? setuserData(localStorage.getItem('adminData')):router.push("/login")
+    console.log(localStorage.getItem('adminData'),'admin token');
+    localStorage.getItem('adminData') && router.pathname!='login'
+    ? setuserData(localStorage.getItem('adminData'))
+    :router.push("/login")
   },[]);
 
   return <div className={styles.navbarContainer} >

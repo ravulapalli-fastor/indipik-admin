@@ -8,7 +8,7 @@
 
 .mainTitle {
     color: var(--text-color-90, #333);
-    font-family: Lato;
+    
     font-size: 24px;
     font-style: normal;
     font-weight: 700;
@@ -42,7 +42,7 @@
     align-items: center;
     gap: 10px;
     color: var(--text-color-30, #999);
-    font-family: Lato;
+    
     font-size: 18px;
     font-style: normal;
     font-weight: 400;

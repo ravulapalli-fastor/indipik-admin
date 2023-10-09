@@ -31,7 +31,7 @@
 }
 .goBackContainer p{
     color: var(--gray-600, #2C3444);
-    font-family: Lato;
+    
     font-size: 18px;
     font-style: normal;
     font-weight: 600;

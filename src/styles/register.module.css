@@ -4,7 +4,6 @@
     max-height:100vh;
     box-sizing: border-box;
     display:flex;
-    font-family:"Lato";
     background: var(--secondary);
     display:flex;
     align-items: center;
@@ -42,7 +41,7 @@
     align-items: center;
     justify-content: center;
     margin:auto;
-    font-family: "Lato",sans-serif;
+    
 }
 .register_right_data_container,.register_verification_container{
     width:400px;
@@ -56,7 +55,6 @@
     border: 1px solid rgba(211, 211, 211, 0.486)
 }
 .welcome_title{
-    font-family: 'Lato', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 24px;
@@ -65,7 +63,6 @@
     margin:0;
 }
 .register_title{
-    font-family: 'Lato', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -161,8 +158,8 @@
     justify-content: right;
     gap:.8rem;
     align-items: center;
-    font-family: "Lato";
-    font-family: "Lato";
+    
+    
     font-style: normal;
     font-weight: 400;
     font-size: var(--text-xxsmall);
@@ -230,7 +227,7 @@
     font-size: var(--text-xsmall);
     line-height: 120%;
     color: var(--dark-black2);
-    font-family: "Lato", sans-serif;
+    
 }
 
 .resend_container {
