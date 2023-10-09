@@ -23,18 +23,19 @@
 }
 .filePreviewContainer{
     width:100%;
-    height:300px;
+    height:200px;
 }
 .imagePreview{
     width: 100%;
     height: 100%;
-    border:1px solid;
     position:relative;
 }
 .mainImg{
     border-radius: 6px;
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 .previewImg{
     width:36px;
@@ -46,6 +47,7 @@
     padding:.5rem;
     border-radius:50%;
     background: #272D37;
+    cursor: pointer;
 }
 .detailsContainer{
     border-radius: 6px;
@@ -163,8 +165,8 @@
 .fullPreviewContainer{
     background: var(--White, #fff);
     box-shadow: -16px 0px 12px 0px rgba(57, 59, 66, 0.10);
-    width:80%;
-    height:80%;
+    width:68%;
+    height:95%;
     opacity:1;
     position:absolute;
     left: 50%;
@@ -173,16 +175,16 @@
     padding:1rem 0;
 }
 .fullPreviewContainer .mainImg{
-    width:100%;
+    height:100%;
     object-fit: contain;
-    max-height:100%;
+    max-width:100%;
 }
 
 .fullPreviewContainer .crossImg{
     position:absolute;
     z-index: 2;
-    right: 2%;
-    top: 5%;
+    right: 4%;
+    top: 6%;
     transform: translate(-25%, -25%);
     filter: contrast(0);
     width: 24px;
@@ -190,4 +192,5 @@
     padding: 0.25rem;
     border: 1px solid #cdcdcd;
     border-radius: 50%;
+    cursor: pointer;
 }

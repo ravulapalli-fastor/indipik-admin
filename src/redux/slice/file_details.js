@@ -95,6 +95,19 @@ export const fileRemove=(payload)=>{
   }
 }
 
+export const fileKeywordRemove=(payload)=>{
+  return async (dispatch)=>{
+    dispatch(getfileDetailsData());
+    try{
+      let result = await instance.put('/file/remove',payload);
+      console.log(result,"file approve data")
+    }catch (error) {
+      const message = error.response?.data?.message || "Something went wrong";
+      dispatch(getfileDetailsDataFailure(message));
+    }
+  }
+}
+
   export const fileDetailsSlice=createSlice({
     name:'fileDetails',
     initialState,

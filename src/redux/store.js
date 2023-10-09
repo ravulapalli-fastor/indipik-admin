@@ -5,6 +5,7 @@ import keywordReducer from './slice/kewords';
 import dashboardReducer from './slice/dashboard';
 import registerReducer from './slice/register';
 import platformUserReducer from './slice/platform_users';
+import userManagementReducer from './slice/user_management';
 
 const rootReducer = combineReducers({
     signInReducer:signInReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     keywordReducer:keywordReducer,
     registerReducer,
     dashboardReducer,
-    platformUserReducer
+    platformUserReducer,
+    userManagementReducer
 });
 
 export const store = configureStore({
