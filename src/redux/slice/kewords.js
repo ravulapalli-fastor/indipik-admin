@@ -35,10 +35,20 @@ export function addkeywords(payload) {
     dispatch(getkeywordsData());
     try {
       let result = await instance.post(`/add/keyword`,payload);
-      
-      // dispatch(getkeywordsDataSuccess(result));
       console.log("add new keywords", result?.data);
-    //add/keyword   toast.success(result?.message || "OTP send Successfully", {toastId:"otpsendId"});
+    } catch (error) {
+      const message = error.response?.data?.message || "Something went wrong";
+      dispatch(getkeywordsDataFailure(message));
+    }
+  };
+}
+
+export function deletekeyword(id) {
+  return async (dispatch) => {
+    dispatch(getkeywordsData());
+    try {
+      let result = await instance.put(`/delete/keyword`,{keyword_id:id});
+      console.log("add delete keywords", result?.data);
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong";
       dispatch(getkeywordsDataFailure(message));

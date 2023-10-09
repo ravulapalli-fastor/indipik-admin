@@ -15,7 +15,7 @@ export function getPlatformUsersDetails(isContributor) {
     dispatch(getPlatformUsersData());
     try {
         let url=isContributor?`/get/platform/users?is_contributor=true`:
-        `/get/platform/users?is_buyer=true`
+        `/get/platform/users`
       let result = await instance.get(url);
       dispatch(getPlatformUsersDataSuccess(result?.data));
       console.log("first ", result?.data);
@@ -37,7 +37,7 @@ export function getPlatformUsersDetails(isContributor) {
     },
     getPlatformUsersDataSuccess: (state, { payload }) => {
       console.log(payload,'payload')
-      state.PlatformUsersData=payload?.data;
+      state.PlatformUsersData=payload?.data?.results;
       state.isLoading = false;
       state.ErrorMessage = null;
     },

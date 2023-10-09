@@ -14,7 +14,7 @@ import TopBar from '../components/common/TopBar/TopBar'
 import style from "../styles/Table.module.css";
 import chevronRight from "../assets/chevron-down.svg";
 import { useDispatch, useSelector } from 'react-redux'
-import { addkeywords, getkeywords } from '../redux/slice/kewords'
+import { addkeywords, deletekeyword, getkeywords } from '../redux/slice/kewords'
 
 export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);
@@ -29,14 +29,17 @@ export default function index() {
   let serialNo=0;
 
   const handleAddKeyword=async()=>{
-    console.log(newKeywordsAdded,"keywords added")
     await dispatch(addkeywords({keywords:newKeywordsAdded}))
     .then((res)=>setIsAddNewModal(false));
   }
 
+  const handleKeywordDelete=(id)=>{
+    console.log()
+    dispatch(deletekeyword(id))
+  }
+
   useEffect(()=>{
     const payload={page_no:1};
-    console.log(payload,'payload details')
     dispatch(getkeywords(payload))
   },[]);
   
@@ -68,12 +71,11 @@ export default function index() {
                 <td>{item?.admin?.name}</td>
                 <td>{new Date(+item?.created_at).toLocaleDateString('en-IN')}</td>
                 <td >
-                  <Image src={chevronRight} alt="" width={50} height={50} 
+                  <Image src={deleteImg} alt="" width={50} height={50} 
                   onClick={()=>{
-                  setIsModalOpen(true);
-                  setIdSelected(0);
-                  setSelectedData(item);
+                   handleKeywordDelete(item?.id)
                   }}
+                  style={{transform:'unset'}}
                   />
                 </td>
               </tr>
@@ -83,7 +85,7 @@ export default function index() {
         </div>       
       </div>
      </PageLayout>
-    {isModalOpen && 
+    {/* {isModalOpen && 
     <Modal 
     goBackText='Details'
     goBackBtnClick={()=>{setIsModalOpen(false);setIdSelected("")}}
@@ -110,13 +112,13 @@ export default function index() {
           <div className={styles.keywordsInnerContainer}>
             <div className={styles.tab}>
               <p>{selectedData?.name}</p>
-              {/* <Image src={deleteImg} alt="" width={24} height={24}/> */}
+              <Image src={deleteImg} alt="" width={24} height={24}/> 
             </div>
           </div>
         </div>
       </div>
     </Modal>
-    }
+    } */}
     {
       isAddNewModal &&
       <Modal
