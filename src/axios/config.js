@@ -6,7 +6,12 @@ const instance = axios.create({
   baseURL: BaseUrl + '/admin',
 });
 
-let token =  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTY5Mzk3Nzc2NCwiZXhwIjoxNjk2NTY5NzY0fQ.0Ajhh_FvMwi8nH7jXv8bOAd75oG-HBgv2WKBa11Hr64';
+let token =  '';
+if (typeof window !== 'undefined') {
+  // localStorage is defined
+  token=localStorage.getItem("adminToken");
+}
+// let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTY5NTk5MTg1OSwiZXhwIjoxNjk4NTgzODU5fQ.P2ghsRSDHt5_NvsoAJhUnpmylfoCLv2PJQ2iFtX9U5Y';
 
 // Request Interceptor  localStorage.getItem("adminToken") ||
 instance.interceptors.request.use(

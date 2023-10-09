@@ -4,12 +4,19 @@ import styles from '../styles/Dashboard.module.css'
 import { PageLayout } from '../components/common/PageLayout/PageLayout'
 import FilterDropdown from '../components/FilterDropdown/FilterDropdown'
 import Pagination from '../components/common/Pagination'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TopBar from '../components/common/TopBar/TopBar'
+import { useRouter } from 'next/router'
 
 export default function Home() {
   const [currentPage,setcurrentPage]=useState(1);
   const [filterSelected,setFilterSelected]=useState("Images");
+  const router=useRouter();
+
+  useEffect(()=>{
+    !localStorage?.getItem("adminToken") && router.push("/login")
+  },[]);
+
   return (
      <PageLayout>
       <div className={styles.container}>

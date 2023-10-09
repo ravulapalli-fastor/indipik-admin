@@ -18,12 +18,35 @@ export default function index() {
   const [filterSelected,setFilterSelected]=useState('InReview');
   const [selectedOption,setSelectedOption]=useState('Reject');
   const {fileData}=useSelector((state)=>state.fileReducer);
+  const [rejectedReasons,setRejectedReasons]=useState([]);
+
   const dispatch=useDispatch();
+  const handleFileApproveReject=()=>{
+    const payload=selectedOption=='Reject'?
+    {
+     'media_id':idSelected,
+     'is_reject':true,
+     'reason':rejectedReasons
+    }:{
+     'media_id':idSelected
+    };
+    dispatch(fileApprove(payload));
+  }
   useEffect(()=>{
-    const payload={type:'VIDEO',page_no:1};
+    const payload={
+    type:'VIDEO',
+    page_no:1,
+    filterSelected:filterSelected=="InReview"?'INREVIEW':'PUBLISHED'
+  };
     console.log(payload,'payload details')
     dispatch(getFileDetails(payload))
-  },[]);
+  },[filterSelected]);
+  
+  useEffect(()=>{
+    isModalOpen ?
+    document.body.style.overflow='hidden'
+    :document.body.style.overflow='unset'
+  },[isModalOpen]);
   
   return (
     <div className={styles.outerContainer}>
@@ -47,7 +70,8 @@ export default function index() {
     <Modal 
     goBackText='Details'
     goBackBtnClick={()=>{setIsModalOpen(false);setIdSelected("")}}
-    isFooterCta={false}
+    isFooterCta={selectedOption!=='Pending'&&filterSelected!=='Approved'}
+    onSubmitCta={selectedOption!=='Pending' && handleFileApproveReject}
     >
       <div className={styles.modalDetails}>
         <p className={styles.title}>Preview</p>
@@ -102,6 +126,25 @@ export default function index() {
           setSelectedOption={setSelectedOption}
           selectedOption={selectedOption}
           />
+          {selectedOption=='Reject' ?
+          <div className={styles.rejectReasonContainer}>
+           {rejectedReasons?.map((reason,i)=>(
+            <p className={styles.reason} key={i}>{reason}</p>
+           ))}
+           <div className={styles.reasonInputPlusButton}>
+            <input placeholder='Enter Reason...' onChange={(e)=>setReason(e.target.value)}/>
+            <button onClick={
+              ()=>reason!=''&& setRejectedReasons(prev=>[...prev,reason])
+              }
+            >Add</button>
+           </div>
+          </div>
+          :''}
+          {/* {selectedOption!=='Pending' &&
+          <button className={'Button'}
+          onClick={handleFileApproveReject}
+          >Submit</button>
+          } */}
         </div>
         :
         <div className={styles.removeContainer}>

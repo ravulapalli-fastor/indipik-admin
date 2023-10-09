@@ -9,7 +9,7 @@ const TopBar = ({
     setIsAddNewModal=()=>{},
     isAddButton=false,
     showFilter=true,
-    pageTitle
+    pageTitle,
 }) => {
   return (
   <div className={styles.topBar}>

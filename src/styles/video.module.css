@@ -119,3 +119,33 @@
     line-height: 140%;
     cursor: pointer;
 }
+.rejectReasonContainer {
+    width: 100%;
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.reasonInputPlusButton {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.reason {
+    color: #787878;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%;
+
+}
+.reasonInputPlusButton input {
+    width: 250px;
+    padding: 0.5rem;
+    border: 1px solid #cdcdcd;
+    border-radius: 4px;
+}

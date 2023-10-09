@@ -21,13 +21,31 @@ export function getkeywords(payload) {
       
       dispatch(getkeywordsDataSuccess(result));
       console.log("first keywords", result);
-    //   toast.success(result?.message || "OTP send Successfully", {toastId:"otpsendId"});
+    //add/keyword   toast.success(result?.message || "OTP send Successfully", {toastId:"otpsendId"});
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong";
       dispatch(getkeywordsDataFailure(message));
     }
   };
 }
+
+export function addkeywords(payload) {
+    console.log(payload,'reducer payload')
+  return async (dispatch) => {
+    dispatch(getkeywordsData());
+    try {
+      let result = await instance.post(`/add/keyword`,payload);
+      
+      // dispatch(getkeywordsDataSuccess(result));
+      console.log("add new keywords", result?.data);
+    //add/keyword   toast.success(result?.message || "OTP send Successfully", {toastId:"otpsendId"});
+    } catch (error) {
+      const message = error.response?.data?.message || "Something went wrong";
+      dispatch(getkeywordsDataFailure(message));
+    }
+  };
+}
+
 
 
   export const keywordsSlice=createSlice({

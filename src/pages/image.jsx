@@ -11,7 +11,7 @@ import previewImg from "../assets/preview.svg";
 import crossImg from "../assets/cross.svg";
 import TopBar from '../components/common/TopBar/TopBar'
 import { useDispatch, useSelector } from 'react-redux'
-import { getFileDetails } from '../redux/slice/file_details'
+import { fileApprove, getFileDetails, getInReviewFileDetails } from '../redux/slice/file_details'
 
 export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);
@@ -19,17 +19,38 @@ export default function index() {
   const [filterSelected,setFilterSelected]=useState('InReview');
   const [selectedOption,setSelectedOption]=useState('Reject');
   const {fileData}=useSelector((state)=>state.fileReducer);
+  const [rejectedReasons,setRejectedReasons]=useState([]);
+  const [titleOptionSelected,setTitleOptionSelected]=useState('InReview');
+
+  const [reason,setReason]=useState('');
+
   const dispatch=useDispatch();
+  const handleFileApproveReject=()=>{
+    const payload=selectedOption=='Reject'?
+    {
+     'media_id':idSelected,
+     'is_reject':true,
+     'reason':rejectedReasons
+    }:{
+     'media_id':idSelected
+    };
+    dispatch(fileApprove(payload));
+  }
   useEffect(()=>{
-    const payload={type:'IMAGE',page_no:1};
+    const payload={type:'IMAGE',
+    page_no:1,
+    filterSelected:filterSelected=="InReview"?'INREVIEW':'PUBLISHED'
+  };
     console.log(payload,'payload details')
     dispatch(getFileDetails(payload))
-  },[]);
+  },[filterSelected]);
+
   useEffect(()=>{
     isModalOpen ?
     document.body.style.overflow='hidden'
     :document.body.style.overflow='unset'
-  },[isModalOpen])
+  },[isModalOpen]);
+
   return (
     <div className={styles.outerContainer}>
      <PageLayout>
@@ -52,7 +73,8 @@ export default function index() {
     <Modal 
     goBackText='Details'
     goBackBtnClick={()=>{setIsModalOpen(false);setIdSelected("")}}
-    isFooterCta={false}
+    isFooterCta={selectedOption!=='Pending'&&filterSelected!=='Approved'}
+    onSubmitCta={selectedOption!=='Pending' && handleFileApproveReject}
     >
       <div className={styles.modalDetails}>
         <p className={styles.title}>Preview</p>
@@ -115,6 +137,27 @@ export default function index() {
           setSelectedOption={setSelectedOption}
           selectedOption={selectedOption}
           />
+          {selectedOption=='Reject' ?
+          <div className={styles.rejectReasonContainer}>
+           {rejectedReasons?.map((reason,i)=>(
+            <p className={styles.reason} key={i}>{reason}</p>
+           ))}
+           <div className={styles.reasonInputPlusButton}>
+            <input 
+            placeholder='Enter Reason...' 
+            onChange={(e)=>setReason(e.target.value)}
+            />
+            <button onClick={
+              ()=>{if(reason!=''){
+                setReason("");
+                setRejectedReasons(prev=>[...prev,reason])
+              }}
+              }
+              className={'Button'}
+            >Add</button>
+           </div>
+          </div>
+          :''}
         </div>
         :
         <div className={styles.removeContainer}>

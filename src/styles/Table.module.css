@@ -9,7 +9,7 @@
     width: 100%;
 }
 .tableContainer table{
-    height: 50vh;
+    max-height: 50vh;
 }
 
 .tableContainer thead {

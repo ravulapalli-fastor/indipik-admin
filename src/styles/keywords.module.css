@@ -107,6 +107,7 @@ padding: 12px;
 align-items: flex-start;
 gap: 10px;
 flex-wrap: wrap;
+align-content: flex-start;
 }
 .defaultInput{
     color: var(--Line-color, #666);

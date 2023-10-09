@@ -7,7 +7,7 @@ const DetailsTable = ({
   tableHeaders,
   setIsModalOpen,
   setIdSelected,
-  data
+  data,
 }) => {
   console.log(data,'file details');
   let serialNo=0;
@@ -36,7 +36,7 @@ const DetailsTable = ({
                   <Image src={chevronRight} alt="" width={50} height={50} 
                   onClick={()=>{
                   setIsModalOpen(true);
-                  setIdSelected(0)
+                  setIdSelected(item?.id)
                   }}
                   />
                 </td>

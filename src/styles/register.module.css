@@ -1,0 +1,306 @@
+.register_main_container{
+    width:100%;
+    height: 100vh;
+    max-height:100vh;
+    box-sizing: border-box;
+    display:flex;
+    font-family:"Lato";
+    background: var(--secondary);
+    display:flex;
+    align-items: center;
+}
+.register_left_container{
+    flex-basis: 45%;
+    height:100%;
+    box-sizing: border-box;
+    background:url("../assets/Rectangle\ 7.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position:relative;
+    margin:auto;
+}
+
+.register_left_container .back_arrow{
+    position: absolute;
+    top: 3%;
+    left: 3%;
+}
+.register_left_container .main_image{
+    width:250px;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.register_right_container{
+    height:100%;
+    box-sizing: border-box;
+    flex-basis: 55%;
+    background-color:var(--secondary);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin:auto;
+    font-family: "Lato",sans-serif;
+}
+.register_right_data_container,.register_verification_container{
+    width:400px;
+    height:fit-content;
+    box-sizing: border-box;
+    padding:1.5rem;
+    border: 1px solid #cdcdcd;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+    margin-top: 0.75rem;
+    border: 1px solid rgba(211, 211, 211, 0.486)
+}
+.welcome_title{
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 19px;
+    color:#333;
+    margin:0;
+}
+.register_title{
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    color:#333;
+    margin:0;
+}
+.input_containers{
+    display:flex;
+    flex-direction: column;
+    margin:1rem 0  1rem 0;
+}
+
+.input_containers .inputfield{
+    height:1rem;
+    padding:1rem 0;
+    width:100%;
+    border: 1px solid #cdcdcd;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
+    border-radius: 7px;
+    outline:0px;
+    padding-left:1rem;
+    margin:1rem 0rem 0 0;
+}
+.password_container {
+    height: 1rem;
+    padding: 1rem ;
+    width: 100%;
+    border: 1px solid #cdcdcd;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
+    border-radius: 7px;
+    margin: 1rem 0rem 0 0;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.password_container .inputfield{
+    height: 100%;
+    width: calc(100% - 30px);
+    border: none !important;
+    box-shadow:none !important;
+    margin:0px !important;
+    padding-left: 0rem;
+}
+.password_container img{
+    width:16px;
+    height:16px;
+    filter: contrast(0.2);
+    cursor:pointer;
+}
+.register_signin_button_and_mode_container{
+    width:100%;
+    box-sizing: border-box;
+}
+.register_signin_mode_container{
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width:100%;
+}
+.register_dash{
+    width:25%;
+    border: 1px solid #E9DCFF;
+}
+.register_with{
+    font-style: normal;
+    font-weight: 500;
+    font-size: var(--text-xxsmall);
+    line-height: 17px;
+    color:var(--dark-black2);    
+}
+.register_social_media_container{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    gap:1rem;
+    margin:1rem 0 1rem 0;
+    width:100%;
+}
+.register_social_media_container img{
+    cursor:pointer
+}
+.error_text{
+    width:90%;
+    color:rgb(238, 13, 13);
+    font-size: var(--text-xxsmall);
+    text-align: left;
+    margin:0.2rem;
+}
+.already_registered{
+    width:100%;
+    display:flex;
+    justify-content: right;
+    gap:.8rem;
+    align-items: center;
+    font-family: "Lato";
+    font-family: "Lato";
+    font-style: normal;
+    font-weight: 400;
+    font-size: var(--text-xxsmall);
+    line-height: var(--text-xxsmall);
+    color:var(--dark-black2);
+}
+.already_registered a{
+    color:#1081E8;
+    cursor:pointer;
+    text-decoration: none;
+}
+.sign_button{
+    width:100%;
+    display:flex;
+    justify-content: center;
+}
+.sign_button button{
+    margin:1rem auto !important;
+    width:60%;
+    font-size: 16px;
+}
+
+/* otp related coss */
+.verification_container {
+    margin: 2rem 0 0rem 0
+}
+
+.main_title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 27px;
+    line-height: 32px;
+    color: var(--dark-black2);
+    margin: 0;
+    margin: 1rem 0 -1rem 0;
+}
+
+.sub_title {
+    font-style: normal;
+    font-weight: 400;
+    font-size: var(--text-xsmall);
+    line-height: 27px;
+    color: var(--light-black2);
+    margin: 0;
+    margin-top: 0.25rem;
+}
+
+.register_input_container {
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 0 0 0;
+}
+
+.register_input_container input {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--line-color);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
+    border-radius: 7px;
+    text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    font-size: var(--text-xsmall);
+    line-height: 120%;
+    color: var(--dark-black2);
+    font-family: "Lato", sans-serif;
+}
+
+.resend_container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.resend_title {
+    font-style: normal;
+    font-weight: 400;
+    font-size: var(--text-xsmall);
+    line-height: 27px;
+    color: var(--light-black2);
+    border-bottom: 0px solid var(--dark-black2);
+}
+
+.resend_code {
+    font-style: normal;
+    font-weight: 700;
+    font-size: var(--text-xsmall);
+    line-height: 27px;
+    color: #1081E8;
+    cursor: pointer;
+}
+
+.login_signin_button {
+    background: linear-gradient(180deg, #FF8F16 0%, #EB5C09 100%);
+    border-radius: 8px;
+    width: 100%;
+    padding: 1rem 0;
+    margin: 2rem auto;
+    font-style: normal;
+    font-weight: 700;
+    font-size: var(--text-medium);
+    line-height: var(--text-large);
+    color: var(--secondary);
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+/* otp input box */
+.otp_flex {
+    width: 100%;
+    margin: 0rem 0 .5rem 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 1px;
+}
+
+.otp_flex input {
+    width: 44px !important;
+    height: 44px;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    text-align: center;
+    /* margin: auto auto auto 4px; */
+}
+
+
+@media (max-width:920px) {
+    .otp_flex {
+        gap: .5rem;
+        width: 100%;
+        /* justify-content: center; */
+    }
+
+    .otp_flex input {
+        width: 38px !important;
+        height: 38px;
+    }
+}

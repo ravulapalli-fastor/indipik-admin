@@ -17,9 +17,11 @@ export function getFileDetails(payload) {
   return async (dispatch) => {
     dispatch(getfileDetailsData());
     try {
-      let result = await instance.get(`/get/file/details?type=${payload.type}&page_no=${payload.page_no}`);
-      
-      dispatch(getfileDetailsDataSuccess(result));
+      let result = await instance.get(`/get/file/details?type=${payload.type}&status=${payload.filterSelected}&page_no=${payload.page_no}`);
+      dispatch(getfileDetailsDataSuccess({
+        data:result?.data?.data?.results,
+        total_pages:result?.data?.total_pages
+      }));
       console.log("first fileDetails", result);
     //   toast.success(result?.message || "OTP send Successfully", {toastId:"otpsendId"});
     } catch (error) {
@@ -29,6 +31,37 @@ export function getFileDetails(payload) {
   };
 }
 
+export function getInReviewFileDetails(payload) {
+    console.log(payload,'reducer payload')
+  return async (dispatch) => {
+    dispatch(getfileDetailsData());
+    try {
+      let result = await instance.get(`/inreview/files?type=${payload.type}&page_no=${payload.page_no}`);
+      dispatch(getfileDetailsDataSuccess({
+        data:result?.data?.message,
+        total_pages:result?.data?.total_pages||1
+      }));
+      console.log("first inreview fileDetails", result);
+    //   toast.success(result?.message || "OTP send Successfully", {toastId:"otpsendId"});
+    } catch (error) {
+      const message = error.response?.data?.message || "Something went wrong";
+      dispatch(getfileDetailsDataFailure(message));
+    }
+  };
+}
+
+export const fileApprove=(payload)=>{
+  return async (dispatch)=>{
+    dispatch(getfileDetailsData());
+    try{
+      let result = await instance.post('approve/file',payload);
+      console.log(result,"file approve data")
+    }catch (error) {
+      const message = error.response?.data?.message || "Something went wrong";
+      dispatch(getfileDetailsDataFailure(message));
+    }
+  }
+}
 
   export const fileDetailsSlice=createSlice({
     name:'fileDetails',
@@ -41,10 +74,10 @@ export function getFileDetails(payload) {
     },
     getfileDetailsDataSuccess: (state, { payload }) => {
       state.fileDetails = true;
-      state.fileData=payload?.data?.data?.results;
+      state.fileData=payload?.data;
       state.fileDetailsLoading = false;
       state.fileDetailsErrorMessage = null;
-      state.total_pages=payload?.data?.data?.total_pages
+      state.total_pages=payload?.total_pages
     },
     getfileDetailsDataFailure: (state, { paylaod }) => {
       state.fileDetails = false;

@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from "react";
-import styles from '../styles/signin.module.css'
+import style from '../styles/signin.module.css'
 import { useDispatch, useSelector } from "react-redux";
-import { adminLogin, adminRegister } from "../redux/Slice/sign_in";
 import { useRouter } from 'next/router';
+import { adminLogin } from "../redux/slice/sign_in";
+import logo from '../assets/Indipik.svg';
+import backArrow from "../assets/arrow-left.svg";
+import Image from "next/image";
+import Link from "next/link";
+import eyes from "../assets/Eyes.svg";
+import eye_hide from "../assets/eye_hide.svg";
 
 
-const Signin = () => {
+const index = () => {
   const {login } = useSelector((state)=> state.signInReducer);
   const [email,setEmail]=useState('');
+  const [errText, setErrText] = useState("");
+  const [errType, setErrType] = useState("");
+  const [passwordShow,setPasswordShow]=useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [password,setPassword]=useState('');
   const [registerDetails,setRegisterDetail]=useState({
     name:'',
@@ -18,56 +28,133 @@ const Signin = () => {
   const dispatch=useDispatch();
   const router=useRouter();
 
-  const handleSubmit=(e)=>{
-   e.preventDefault();
-   dispatch(adminLogin({email:email,password:password}))
-   .then((res)=>{
-    console.log(res,'res login')
-    login && router.replace('/');
-   })
-  }
-  const handleRegister=(e)=>{
-   e.preventDefault();
-   dispatch(adminRegister({
-    email:registerDetails?.email,
-    name:registerDetails?.name,
-    password:registerDetails?.password
-  }))
+  // const handleSubmit=(e)=>{
+  //  e.preventDefault();
+  //  dispatch(adminLogin({email:email,password:password}))
+  //  .then((res)=>{
+  //   console.log(res,'res login')
+  //   login && router.replace('/');
+  //  })
+  // }
+  const handleData=(e)=>{
+    let {name,value}=e.target;
+    setEmail(value);
+    if(errText!==""){
+    setErrText("");
+    setErrType("");
+    }
+  };
+
+  const handleSignin=async()=>{
+    if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+        try{
+          await dispatch(adminLogin({
+            email:email,password:password
+          })).then((res)=>{
+              if(res.payload.result.status){
+                        toast.success("Successfully Sign in!");
+                        router.push(`/`);
+                      }else{
+                        toast.error(res.payload.result.message)
+                      }          
+          })
+        }catch(e){
+          console.log(e,"error")
+        }
+        console.log("Success");
+      
+    }else{
+      setErrType("email");
+      if(email==="") setErrText("Please enter your email id");
+      else setErrText("Email Id is incorrect, please enter correct email");
+    }
   }
   useEffect(() => {
     login && router.push('/')
-  }, [login])
+  }, [login]);
 
-  return <div className={styles.mainContainer}>
-    {type!='register'?
-    <form className={styles.container} 
-    onSubmit={(e)=>handleSubmit(e)}
+
+  return (
+    <div className={style.login_main_container}>
+      <div className={style.login_left_container}>
+          {!isLogin && <Image src={backArrow} alt="back_arrow" 
+          onClick={()=>{setIsLogin(true)}}
+          width={24} height={24} 
+          className={style.back_arrow}/>
+          }
+          <Image src={logo} alt="images" width={100} height={100}className={style.main_image}/>
+      </div>
+      <div className={style.login_right_container}>
+        <div className={style.login_right_data_container}>
+        {isLogin?(
+          <>
+          <p className={style.welcome_title}>Welcome back!</p>
+          <h2 className={style.login_title}>Login to your account</h2>
+          <div className={style.email_container}>
+    <div className={style.input_container}
+      style={{
+          border:errType=="email"?"1px solid rgb(238, 13, 13)":"1px solid #cdcdcd"
+      }}
     >
-      <input placeholder='Enter Email' type="email" onChange={(e)=>setEmail(e.target.value)}/>
-      <input placeholder="Enter Password" type='password' onChange={(e)=>setPassword(e.target.value)}/>
-      <button type='submit'>
-        Login
-      </button>
-    </form>
-    :
-    <form className={styles.container} 
-    onSubmit={(e)=>handleRegister(e)}
-    >
-      <input placeholder='Enter Name' type="name" 
-      onChange={(e)=>setRegisterDetail({...registerDetails,'name':e.target.value})}
+      <input className={style.inputfield}
+      placeholder="Email ID"
+      type="email"
+      name="email"
+      onChange={(e)=>setEmail(e.target.value)}
       />
-      <input placeholder='Enter Email' type="email" 
-      onChange={(e)=>setRegisterDetail({...registerDetails,'email':e.target.value})}
-      />      
-      <input placeholder="Enter Password" type='password' 
-      onChange={(e)=>setRegisterDetail({...registerDetails,'password':e.target.value})}
-      />      
-      <button type='submit'>
-        Register
-      </button>
-    </form>
-    }
-  </div>;
+    </div>
+    {errType=="email" && <p className={style.error_text}>{errText}</p>}
+    <div className={style.input_container} 
+      style={{
+          border:errType=="password"?"1px solid rgb(238, 13, 13)":"1px solid #cdcdcd"
+      }}
+    >
+      <input className={style.inputfield}
+      placeholder="Password"
+      type={passwordShow?"text":"password"}
+      name="password"
+      minLength={4}
+      maxLength={4}
+      onChange={(e)=>setPassword(e.target.value)}
+      />
+      <Image 
+      src={passwordShow?eye_hide:eyes} 
+      alt="password" 
+      width={16} height={16} 
+      onClick={()=>setPasswordShow(!passwordShow)}
+      />
+    </div>
+    {errType=="password" && <p className={style.error_text}>{errText}</p>}
+    <div className={style.not_registered}>
+    {/* <div className={style.forgot_password}
+    // onClick={handleForgotPassword}
+    >
+      Forgot password ?
+    </div> */}
+    </div>
+    <div className={style.sign_button}>
+    <button className={"Button"}
+        onClick={handleSignin}
+    >
+        Sign in
+    </button>
+     </div>
+         </div> 
+         </>         
+        ):(
+            <>
+            hello
+            </>
+          )}
+          <div className={style.login_signin_button_and_mode_container}>
+            <Link href={`/register`}>
+            Create a new account
+           </Link>
+          </div>
+        </div>
+      </div>
+  </div>
+  );
 };
 
-export default Signin;
+export default index;

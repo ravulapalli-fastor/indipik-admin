@@ -10,6 +10,7 @@ const initialState = {
   verification: false,
   verificationLoading: false,
   verificationErrorMessage: null,
+  isAuth:false
 };
 
 
@@ -39,11 +40,11 @@ export function adminLogin(paylaod) {
         paylaod,
       );
       
-      dispatch(getLoginDataSuccess(true));
+      dispatch(getLoginDataSuccess(result?.data));
       console.log("first login", result);
-            localStorage.setItem("adminToken", result?.admin?.token);
-            localStorage.setItem("adminData", JSON.stringify(result?.admin));
-      toast.success(result?.message || "OTP send Successfully", {toastId:"otpsendId"});
+            localStorage.setItem("adminToken", result?.data?.admin?.token);
+            localStorage.setItem("adminData", JSON.stringify(result?.data?.admin));
+      // toast.success(result?.data?.message || "OTP send Successfully", {toastId:"otpsendId"});
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong";
       dispatch(getLoginDataFailure(message));
@@ -51,6 +52,30 @@ export function adminLogin(paylaod) {
   };
 }
 
+export function forgotLoginPassword(paylaod) {
+  return async (dispatch) => {
+    dispatch(getregisterData());
+    try {
+      let result = await instance.post("/forgot", 
+        paylaod,
+      );
+      console.log("otp resend ", result);
+      toast.success(result?.message || "OTP resend Successfully!", {toastId:"verifyOtpsendId"});
+    } catch (error) {
+      const message = error.response?.data?.message || "Something went wrong";
+      dispatch(getregisterDataFailure(message));
+    }
+  };
+}
+
+export function IsAuth(){
+  return async (dispatch) => { 
+  let auth=localStorage.getItem("adminData")?true:false;
+  console.log(auth)
+  // dispatch(getIsAuth(auth));
+  return auth;
+  }
+}
 
   export const loginSlice=createSlice({
     name:'adminSignin',
@@ -63,6 +88,7 @@ export function adminLogin(paylaod) {
     },
     getLoginDataSuccess: (state, { payload }) => {
       state.login = true;
+      state.userData=payload?.admin;
       state.loginLoading = false;
       state.loginErrorMessage = null;
     },
@@ -70,6 +96,13 @@ export function adminLogin(paylaod) {
       state.login = false;
       state.loginErrorMessage = paylaod;
       state.loginLoading = false;
+    // },
+    // getIsAuth:(state, { paylaod}) => {
+    //   console.log("payload successs",payload);
+    //   state.login = false;
+    //   // state.isAuth=payload;
+    //   state.loginErrorMessage = paylaod;
+    //   state.loginLoading = false;
     },
     }),
     extraReducers:(builder)=>{
@@ -80,6 +113,7 @@ const {
   getLoginData,
   getLoginDataSuccess,
   getLoginDataFailure,
+  getIsAuth
 
 //   getVerificationData,
 //   getVerificationDataSuccess,

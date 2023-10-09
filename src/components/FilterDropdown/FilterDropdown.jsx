@@ -8,7 +8,7 @@ const FilterDropdown = ({
   isFilter=true,
   options=["one","two","three"],
   selectedOption="Filter",
-  setSelectedOption
+  setSelectedOption=()=>{}
 }) => {
   const [isDropdown,setIsDropdown]=useState(false);
 

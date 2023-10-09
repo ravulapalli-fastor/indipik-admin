@@ -14,7 +14,7 @@ import TopBar from '../components/common/TopBar/TopBar'
 import style from "../styles/Table.module.css";
 import chevronRight from "../assets/chevron-down.svg";
 import { useDispatch, useSelector } from 'react-redux'
-import { getkeywords } from '../redux/slice/kewords'
+import { addkeywords, getkeywords } from '../redux/slice/kewords'
 
 export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);
@@ -24,7 +24,15 @@ export default function index() {
   const tableHeaders=["S.No","Name","Creator Name","Created On","Action"];
   const {KeywordData}=useSelector((state)=>state.keywordReducer);
   const dispatch=useDispatch();
+  const [selectedData,setSelectedData]=useState(null);
+
   let serialNo=0;
+
+  const handleAddKeyword=async()=>{
+    console.log(newKeywordsAdded,"keywords added")
+    await dispatch(addkeywords({keywords:newKeywordsAdded}))
+    .then((res)=>setIsAddNewModal(false));
+  }
 
   useEffect(()=>{
     const payload={page_no:1};
@@ -52,7 +60,7 @@ export default function index() {
             </thead>
             <tbody>
               {KeywordData?.map((item,index)=>{
-                serialNo+=index;
+                serialNo+=1;
                 return(
               <tr>
                 <td>{serialNo}</td>
@@ -63,7 +71,8 @@ export default function index() {
                   <Image src={chevronRight} alt="" width={50} height={50} 
                   onClick={()=>{
                   setIsModalOpen(true);
-                  setIdSelected(0)
+                  setIdSelected(0);
+                  setSelectedData(item);
                   }}
                   />
                 </td>
@@ -87,11 +96,11 @@ export default function index() {
             <table>
               <tr>
                 <td>Creator Name</td>
-                <td>Aryan Sharma</td>
+                <td>{selectedData?.admin?.name}</td>
               </tr>
               <tr>
                 <td>Creator On</td>
-                <td>12-09-23</td>
+                <td>{new Date(+selectedData?.created_at).toLocaleDateString('en-IN')}</td>
               </tr>
             </table>
           </div>
@@ -100,8 +109,8 @@ export default function index() {
           <p className={styles.title}>Keywords Name</p>
           <div className={styles.keywordsInnerContainer}>
             <div className={styles.tab}>
-              <p>Happy</p>
-              <Image src={deleteImg} alt="" width={24} height={24}/>
+              <p>{selectedData?.name}</p>
+              {/* <Image src={deleteImg} alt="" width={24} height={24}/> */}
             </div>
           </div>
         </div>
@@ -112,8 +121,9 @@ export default function index() {
       isAddNewModal &&
       <Modal
         goBackText='Add New'
-        goBackBtnClick={()=>{setIsAddNewModal(false);setIdSelected("")}}
+        goBackBtnClick={()=>{setIsAddNewModal(false);setNewKeywordsAdded([]);setIdSelected("")}}
         isFooterCta={true}
+        onSubmitCta={handleAddKeyword}
       >
         <div className={styles.modalDetails}>
           <p className={styles.title}>Keywords</p>
