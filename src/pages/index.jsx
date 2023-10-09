@@ -7,15 +7,55 @@ import Pagination from '../components/common/Pagination'
 import { useEffect, useState } from 'react'
 import TopBar from '../components/common/TopBar/TopBar'
 import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
+import { getDashboardDetails } from '../redux/slice/dashboard'
+import { getFileDetails } from '../redux/slice/file_details'
 
 export default function Home() {
   const [currentPage,setcurrentPage]=useState(1);
-  const [filterSelected,setFilterSelected]=useState("Images");
-  const router=useRouter();
+  const [filterSelected,setFilterSelected]=useState("Image");
+  const {DashboardData}=useSelector((s)=>s.dashboardReducer);
+  const {fileData}=useSelector((state)=>state.fileReducer);
 
+  const router=useRouter();
+  const dispatch=useDispatch();
+
+
+console.log(Object.entries(DashboardData));
+const dashboardTitle=[
+  {'key':'totalRevenue',
+   'title':'Total Revenue'
+  },
+  {'key':'totalActiveBuyer',
+   'title':'Total Active Buyer'
+  },
+  {'key':'totalActiveContributor',
+   'title':'Total Active Contributor'
+  },
+  {'key':'totalImages',
+   'title':'Total Images'
+  },
+  {'key':'totalVideos',
+   'title':'Total Videos'
+  },
+    {'key':'totalSubcribedUsers',
+   'title':'Total Subcribed Users'
+  },
+  {'key':'totalDownload',
+   'title':'Total Download'
+  }
+]
+const getDashboardTitle=(key)=>{
+   return dashboardTitle?.find(data=>data.key==key)?.title
+};
   useEffect(()=>{
-    !localStorage?.getItem("adminToken") && router.push("/login")
+    !localStorage?.getItem("adminToken") && router.push("/login");
+    dispatch(getDashboardDetails());
   },[]);
+  useEffect(()=>{
+    dispatch(getFileDetails({type:filterSelected?.toLocaleUpperCase(),
+    page_no:1}));
+  },[filterSelected])
 
   return (
      <PageLayout>
@@ -29,15 +69,17 @@ export default function Home() {
       </div>
       <div className='hr'></div>
       <div className={styles.totalDataPreview}>
+        {Object.entries(DashboardData)?.map((data)=>(
         <div className={styles.previewCard}>
-          <p className={styles.previewCardTitle}>Title</p>
-          <h3 className={styles.previewCardDescription}>Description</h3>
+          <p className={styles.previewCardTitle}>{getDashboardTitle(data?.[0])}</p>
+          <h3 className={styles.previewCardDescription}>{data?.[1]}</h3>
         </div>
+        ))}
       </div>
       <div className={styles.detailsContainer}>
       <TopBar
        setFilterSelected={setFilterSelected}
-       titleOptions={["Images","Videos"]}
+       titleOptions={["Image","Video"]}
        filterSelected={filterSelected}
        showFilter={false}
       />         
@@ -53,18 +95,20 @@ export default function Home() {
               </tr>
             </thead>
             <tbody>
+              {fileData?.map((data,index)=>(
               <tr>
-                <td>1</td>
-                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                <td>Aryan Sharma</td>
-                <td>April 20, 2023</td>
-                <td>Active</td>
+                <td>{index+1}</td>
+                <td>{data?.title}</td>
+                <td>{data?.user?.name}</td>
+                <td>{new Date(+data?.created_at).toLocaleDateString('en-IN')}</td>
+                <td>{data?.status?.toLowerCase()}</td>
               </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </div>
-      <Pagination totalPages={5} currentPage={currentPage}/>
+      {/* <Pagination totalPages={5} currentPage={currentPage}/> */}
       </div>
      </PageLayout>
   )

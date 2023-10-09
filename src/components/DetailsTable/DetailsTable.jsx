@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../../styles/Table.module.css";
 import Image from "next/image";
 import chevronRight from "../../assets/chevron-down.svg";
+import { useDispatch } from "react-redux";
+import { getSingleFileDetails } from "../../redux/slice/file_details";
 
 const DetailsTable = ({
   tableHeaders,
@@ -9,7 +11,6 @@ const DetailsTable = ({
   setIdSelected,
   data,
 }) => {
-  console.log(data,'file details');
   let serialNo=0;
   return (
   <div className={styles.tableContainer}>
@@ -26,7 +27,7 @@ const DetailsTable = ({
             data?.map((item,index)=>{
               serialNo+=1;
               return(
-              <tr>
+              <tr key={index}>
                 <td>{serialNo}</td>
                 <td>{item?.title}</td>
                 <td>{item?.user?.name}</td>

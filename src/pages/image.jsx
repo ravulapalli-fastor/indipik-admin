@@ -11,16 +11,17 @@ import previewImg from "../assets/preview.svg";
 import crossImg from "../assets/cross.svg";
 import TopBar from '../components/common/TopBar/TopBar'
 import { useDispatch, useSelector } from 'react-redux'
-import { fileApprove, getFileDetails, getInReviewFileDetails } from '../redux/slice/file_details'
+import { fileApprove, fileRemove, getFileDetails, getInReviewFileDetails, getSingleFileDetails } from '../redux/slice/file_details'
 
 export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);
   const [idSelected,setIdSelected]=useState("");
   const [filterSelected,setFilterSelected]=useState('InReview');
   const [selectedOption,setSelectedOption]=useState('Reject');
-  const {fileData}=useSelector((state)=>state.fileReducer);
+  const {fileData,singleFileDetails}=useSelector((state)=>state.fileReducer);
   const [rejectedReasons,setRejectedReasons]=useState([]);
   const [titleOptionSelected,setTitleOptionSelected]=useState('InReview');
+  const [isFullPreview,setIsFullPreview]=useState(false);
 
   const [reason,setReason]=useState('');
 
@@ -35,7 +36,24 @@ export default function index() {
      'media_id':idSelected
     };
     dispatch(fileApprove(payload));
-  }
+    const payload2={
+    type:'IMAGE',
+    page_no:1,
+    filterSelected:filterSelected=="InReview"?'INREVIEW':'PUBLISHED'
+  };
+    dispatch(getFileDetails(payload2))
+  };
+
+  const handleRemove=()=>{
+    dispatch(fileRemove({media_id:idSelected}));
+    const payload={type:'IMAGE',
+    page_no:1,
+    filterSelected:filterSelected=="InReview"?'INREVIEW':'PUBLISHED'
+  };
+    setIsModalOpen(false);
+    dispatch(getFileDetails(payload))
+  };
+
   useEffect(()=>{
     const payload={type:'IMAGE',
     page_no:1,
@@ -50,6 +68,17 @@ export default function index() {
     document.body.style.overflow='hidden'
     :document.body.style.overflow='unset'
   },[isModalOpen]);
+
+  useEffect(()=>{
+    idSelected!="" && dispatch(getSingleFileDetails({
+      type:'IMAGE',
+      status:filterSelected=="InReview"?'INREVIEW':'PUBLISHED',
+      media_id:Number(idSelected)
+    }));
+  },[idSelected]);
+
+  console.log(singleFileDetails,'singleFile details');
+
 
   return (
     <div className={styles.outerContainer}>
@@ -82,11 +111,11 @@ export default function index() {
           <div className={styles.imagePreview}>
             <Image 
             className={styles.mainImg} 
-            src={dummyImg} alt="" width={400} height={200}
+            src={singleFileDetails?.media_formats?.find((x)=>x.file_type=="ORIGINAL")?.url} alt="" width={400} height={200}
             />
             <Image 
             className={styles.previewImg}
-            onClick={()=>{}} 
+            onClick={()=>{setIsFullPreview(true)}} 
             src={previewImg} alt="" width={400} height={200}
             />
           </div>
@@ -97,24 +126,31 @@ export default function index() {
           <div className={styles.detailsContainer}>
             <table>
               <tr>
-                <td>Image Name</td>
-                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                <td>Image Title</td>
+                <td>{singleFileDetails?.title}</td>
               </tr>
               <tr>
                 <td>Contributor Name</td>
-                <td>Aryan Sharma</td>
+                <td>{singleFileDetails?.user?.name}</td>
               </tr>
               <tr>
                 <td>Uploaded On</td>
-                <td>12-09-23</td>
+                <td>{new Date(+singleFileDetails?.created_at).toLocaleDateString('en-IN')}</td>
               </tr>
               <tr>
                 <td>Category</td>
-                <td>Image, Building</td>
+                <td>
+                {singleFileDetails?.media_categories?.map((cat)=>(
+                  cat?.category?.name
+                )).join(", ")}
+                </td>
               </tr>
               <tr>
                 <td>Location</td>
-                <td>New Delhi</td>
+                <td>{`
+                ${singleFileDetails?.extra_medium?.lat?singleFileDetails?.extra_medium?.lat:''}
+                , ${singleFileDetails?.extra_medium?.long?singleFileDetails?.extra_medium?.long:''}
+                `}</td>
               </tr>
             </table>
           </div>
@@ -122,10 +158,12 @@ export default function index() {
         <div className={styles.keywordsContainer}>
           <p className={styles.title}>Keywords</p>
           <div className={styles.keywordsInnerContainer}>
-            <div className={styles.tab}>
-              <p>Happy</p>
+            {singleFileDetails?.media_keywords?.map((item,index)=>(
+            <div className={styles.tab} key={index}>
+              <p>{item?.keyword?.name}</p>
               <Image src={crossImg} alt="" width={24} height={24}/>
             </div>
+            ))}
           </div>
         </div>
         {filterSelected=="InReview" ?
@@ -162,11 +200,20 @@ export default function index() {
         :
         <div className={styles.removeContainer}>
           <p className={styles.title}>Remove</p>
-          <button>Remove</button>
+          <button onClick={handleRemove}>Remove</button>
         </div>
       }
       </div>
     </Modal>
+    }
+    {
+      isFullPreview && 
+      <div className='modalWrapper'>
+        <div className={styles.fullPreviewContainer}>
+          <Image onClick={()=>setIsFullPreview(false)} className={styles.crossImg} src={crossImg} alt="Close" width={50} height={50}/>
+          <Image className={styles.mainImg} src={singleFileDetails?.media_formats?.find((x)=>x.file_type=="ORIGINAL")?.url} alt="" width={1000} height={500}/>
+        </div>
+      </div>
     }
     </div>
   )

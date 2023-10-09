@@ -118,6 +118,7 @@
     font-weight: 500;
     line-height: 140%;
     cursor: pointer;
+    background: none;
 }
 .rejectReasonContainer {
     width: 100%;
@@ -149,3 +150,4 @@
     border: 1px solid #cdcdcd;
     border-radius: 4px;
 }
+

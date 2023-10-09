@@ -42,6 +42,16 @@ p,h1,h2,h3,h4,h5{
   border: none;
   cursor: pointer;
 }
+.modalWrapper {
+  position: absolute;
+  z-index: 999999;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background: var(--text-color-90, #3333335f);
+  display: flex;
+  justify-content: flex-end;
+}
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

@@ -26,7 +26,7 @@ export const Header = () => {
     const dropdownRef = useOnclickOutside(() => {
         setIsDropdown(false);
     });
-  console.log(userData,'isDropdown');
+    
   useEffect(()=>{
     localStorage.getItem('adminData') ? setuserData(localStorage.getItem('adminData')):router.push("/login")
   },[]);
@@ -39,7 +39,7 @@ export const Header = () => {
      ref={dropdownRef}
      >
       <Image src={profileIcon} alt="" width={100} height={50}/>
-      <p className={styles.userName}>User</p>
+      <p className={styles.userName}>{JSON.parse(userData)?.name}</p>
       <Image src={chevronDown} alt="" width={100} height={50}/>
      </div>
      {isDropdown &&<div className={styles.dropdown} ref={dropdownRef}>

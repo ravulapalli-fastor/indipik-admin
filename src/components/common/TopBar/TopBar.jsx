@@ -38,7 +38,7 @@ const TopBar = ({
           `}
           onClick={()=>setFilterSelected(option)}
           >
-            {option}
+            {option=="Image"||option=="Video"?option+'s':option}
         </div>
         ))}
       </div>

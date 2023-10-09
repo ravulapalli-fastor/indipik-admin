@@ -127,6 +127,7 @@
     font-weight: 500;
     line-height: 140%;
     cursor: pointer;
+    background: none;
 }
 .reason{
     color: #787878;
@@ -156,4 +157,37 @@
     padding: 0.5rem;
     border: 1px solid #cdcdcd;
     border-radius: 4px;
+}
+
+/* full preview */
+.fullPreviewContainer{
+    background: var(--White, #fff);
+    box-shadow: -16px 0px 12px 0px rgba(57, 59, 66, 0.10);
+    width:80%;
+    height:80%;
+    opacity:1;
+    position:absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding:1rem 0;
+}
+.fullPreviewContainer .mainImg{
+    width:100%;
+    object-fit: contain;
+    max-height:100%;
+}
+
+.fullPreviewContainer .crossImg{
+    position:absolute;
+    z-index: 2;
+    right: 2%;
+    top: 5%;
+    transform: translate(-25%, -25%);
+    filter: contrast(0);
+    width: 24px;
+    height: 24px;
+    padding: 0.25rem;
+    border: 1px solid #cdcdcd;
+    border-radius: 50%;
 }

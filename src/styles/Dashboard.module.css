@@ -1,6 +1,7 @@
 .container{
   width: 100%;
 }
+
 .topFilterHeadingContainer{
   width:100%;
   display:flex;
@@ -28,16 +29,22 @@
 }
 
 /* preview card */
+.totalDataPreview{
+  display:flex;
+  gap:1rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
 .previewCard{
   display: flex;
-  padding: 13px 62px 24px 11px;
+  padding: 1rem;
   flex-direction: column;
   align-items: flex-start;
   gap: 18px;
   border-radius: 4px;
   border: 1px solid var(--Background-color, #EDEDED);
   background: var(--White, #FFF);
-  width:250px;
+  width:220px;
 }
 .previewCardTitle{
   color: var(--text-color-60, #666);
