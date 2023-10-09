@@ -10,6 +10,8 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDashboardDetails } from '../redux/slice/dashboard'
 import { getFileDetails } from '../redux/slice/file_details'
+import ResponsivePagination from 'react-responsive-pagination';
+import 'react-responsive-pagination/themes/classic.css';
 
 export default function Home() {
   const [currentPage,setcurrentPage]=useState(1);

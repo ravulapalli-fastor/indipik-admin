@@ -1,0 +1,46 @@
+.pag_inline {
+    display: flex;
+    list-style-type: none;
+    justify-content: flex-end;
+    margin-top: 12px
+}
+
+.prev {
+    margin-right: 15px;
+
+    padding: 3px 18px;
+
+    color: #ac8989;
+    background-color: #fffff8;
+    font-size: 15px;
+}
+.next {
+    margin-right: 15px;
+    padding: 3px 18px;
+    color: #ac8989;
+    background-color: #fffff8;
+    font-size: 15px;
+}
+
+.listClass {
+    /* background:#63a726; */
+    border: 1px solid #edeaea;
+    padding: 3px 12px;
+    border-radius: 10px;
+    margin-right: 15px;
+    color: gray;
+    cursor: pointer;
+}
+
+.activeClass {
+    background: #3B82F6;
+    padding: 3px 12px;
+    border-radius: 10px;
+    margin-right: 15px;
+    color: white;
+}
+
+.brkclass {
+    font-weight: 500;
+    margin-right: 8px;
+}

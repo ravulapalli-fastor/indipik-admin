@@ -17,7 +17,7 @@ export function getkeywords(payload) {
   return async (dispatch) => {
     dispatch(getkeywordsData());
     try {
-      let result = await instance.get(`/get/keywords?page_no=1`);
+      let result = await instance.get(`/get/keywords?page_no=${payload?.page_no}`);
       
       dispatch(getkeywordsDataSuccess(result));
       console.log("first keywords", result);
@@ -47,7 +47,7 @@ export function deletekeyword(id) {
   return async (dispatch) => {
     dispatch(getkeywordsData());
     try {
-      let result = await instance.put(`/delete/keyword`,{keyword_id:id});
+      let result = await instance.put(`/delete/keyword?keyword_id=${Number(id)}`);
       console.log("add delete keywords", result?.data);
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong";
@@ -72,7 +72,7 @@ export function deletekeyword(id) {
       state.KeywordData=payload?.data?.data?.results;
       state.keywordsLoading = false;
       state.keywordsErrorMessage = null;
-      state.pages=payload?.data?.total_pages;
+      state.pages=payload?.data?.data?.total_pages;
     },
     getkeywordsDataFailure: (state, { paylaod }) => {
       state.keywords = false;

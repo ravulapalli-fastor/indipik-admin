@@ -11,6 +11,8 @@ import deleteImg from "../assets/delete.svg";
 import FilterDropdown from '../components/FilterDropdown/FilterDropdown'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPlatformUsersDetails } from '../redux/slice/platform_users'
+import ResponsivePagination from 'react-responsive-pagination';
+import 'react-responsive-pagination/themes/classic.css';
 
 export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);
@@ -20,12 +22,27 @@ export default function index() {
   ?["S.No","Name","Joined Date","Total Items Uploaded","Status","Action"]
   :["S.No","Name","Joined Date","Total Items Downloaded","Status","Action"];
   const [selectedOption,setSelectedOption]=useState('Active');
-  const {PlatformUsersData}=useSelector(s=>s.platformUserReducer)
+  const {PlatformUsersData,total_pages}=useSelector(s=>s.platformUserReducer)
   const [dataSelected,setDataSelected]=useState(null);
   const dispatch=useDispatch();
+  const [currentPage,setCurrentPage]=useState(1);
+
   useEffect(()=>{
-    dispatch(getPlatformUsersDetails(filterSelected=='Contributors'?true:false));
+    setCurrentPage(1);
+    const payload={
+      page_no:1,
+      isContributor:filterSelected=='Contributors'?true:false
+    }
+    dispatch(getPlatformUsersDetails(payload));
   },[filterSelected]);
+
+  useEffect(()=>{
+    const payload={
+      page_no:currentPage,
+      isContributor:filterSelected=='Contributors'?true:false
+    }
+    dispatch(getPlatformUsersDetails(payload));
+  },[currentPage]);
 
   const [buyerData,setBuyerData]=useState({
     'plan':'',
@@ -91,8 +108,18 @@ export default function index() {
               }
             </tbody>
           </table>  
-        </div>     
-      </PageLayout>
+        </div> 
+      {total_pages>1 && 
+        <div className={'paginationContainer'}>
+        {" "}
+        <ResponsivePagination
+        current={currentPage}
+        total={total_pages}
+        onPageChange={setCurrentPage}
+       />
+       </div>
+      }      
+    </PageLayout>
     {isModalOpen && 
     <Modal 
     goBackText='Details'

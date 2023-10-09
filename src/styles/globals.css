@@ -1,3 +1,4 @@
+@import url('./paginate.css');
 html,
 body {
   padding: 0;
@@ -54,6 +55,11 @@ p,h1,h2,h3,h4,h5{
   background: var(--text-color-90, #3333335f);
   display: flex;
   justify-content: flex-end;
+}
+.paginationContainer{
+  width:250px;
+  margin-top: 1.5rem;
+  margin-left: calc(100% - 250px);
 }
 @media (prefers-color-scheme: dark) {
   html {

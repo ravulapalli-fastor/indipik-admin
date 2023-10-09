@@ -24,7 +24,7 @@ export function getFileDetails(payload) {
       let result = await instance.get(url);
       dispatch(getfileDetailsDataSuccess({
         data:result?.data?.data?.results,
-        total_pages:result?.data?.total_pages
+        total_pages:result?.data?.data?.total_pages
       }));
       console.log("first fileDetails", result);
     //   toast.success(result?.message || "OTP send Successfully", {toastId:"otpsendId"});

@@ -10,8 +10,8 @@ const DetailsTable = ({
   setIsModalOpen,
   setIdSelected,
   data,
+  currentPage
 }) => {
-  let serialNo=0;
   return (
   <div className={styles.tableContainer}>
           <table>
@@ -25,10 +25,9 @@ const DetailsTable = ({
             <tbody>
             {
             data?.map((item,index)=>{
-              serialNo+=1;
               return(
               <tr key={index}>
-                <td>{serialNo}</td>
+                <td>{(currentPage-1)*10+(index+1)}</td>
                 <td>{item?.title}</td>
                 <td>{item?.user?.name}</td>
                 <td>{new Date(+item?.created_at).toLocaleDateString('en-IN')}</td>

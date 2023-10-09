@@ -12,16 +12,19 @@ import crossImg from "../assets/cross.svg";
 import TopBar from '../components/common/TopBar/TopBar'
 import { useDispatch, useSelector } from 'react-redux'
 import { fileApprove, fileRemove, getFileDetails, getInReviewFileDetails, getSingleFileDetails } from '../redux/slice/file_details'
+import ResponsivePagination from 'react-responsive-pagination';
+import 'react-responsive-pagination/themes/classic.css';
 
 export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);
   const [idSelected,setIdSelected]=useState("");
   const [filterSelected,setFilterSelected]=useState('InReview');
   const [selectedOption,setSelectedOption]=useState('Reject');
-  const {fileData,singleFileDetails}=useSelector((state)=>state.fileReducer);
+  const {fileData,singleFileDetails,total_pages}=useSelector((state)=>state.fileReducer);
   const [rejectedReasons,setRejectedReasons]=useState([]);
   const [titleOptionSelected,setTitleOptionSelected]=useState('InReview');
   const [isFullPreview,setIsFullPreview]=useState(false);
+  const [currentPage,setCurrentPage]=useState(1);
 
   const [reason,setReason]=useState('');
 
@@ -55,6 +58,7 @@ export default function index() {
   };
 
   useEffect(()=>{
+    setCurrentPage(1);
     const payload={type:'IMAGE',
     page_no:1,
     filterSelected:filterSelected=="InReview"?'INREVIEW':'PUBLISHED'
@@ -62,6 +66,15 @@ export default function index() {
     console.log(payload,'payload details')
     dispatch(getFileDetails(payload))
   },[filterSelected]);
+
+  useEffect(()=>{
+    const payload={type:'IMAGE',
+    page_no:currentPage,
+    filterSelected:filterSelected=="InReview"?'INREVIEW':'PUBLISHED'
+  };
+    console.log(payload,'payload details')
+    dispatch(getFileDetails(payload))
+  },[currentPage]); 
 
   useEffect(()=>{
     isModalOpen ?
@@ -77,7 +90,7 @@ export default function index() {
     }));
   },[idSelected]);
 
-  console.log(singleFileDetails,'singleFile details');
+  console.log(currentPage,filterSelected,'singleFile details');
 
 
   return (
@@ -94,9 +107,21 @@ export default function index() {
         setIsModalOpen={setIsModalOpen}
         setIdSelected={setIdSelected}
         data={fileData}
+        currentPage={currentPage}
         tableHeaders={["S.No","Image Name","Contributor Name","Uploaded On","Status","Action"]}
         /> 
       </div>
+      {total_pages>1 && 
+        <div className={'paginationContainer'}>
+        {" "}
+        <ResponsivePagination
+        current={currentPage}
+        total={total_pages}
+        onPageChange={setCurrentPage}
+       />
+       </div>
+      }
+      
      </PageLayout>
     {isModalOpen && 
     <Modal 

@@ -10,12 +10,12 @@ const initialState = {
 
 
 
-export function getPlatformUsersDetails(isContributor) {
+export function getPlatformUsersDetails(payload) {
   return async (dispatch) => {
     dispatch(getPlatformUsersData());
     try {
-        let url=isContributor?`/get/platform/users?is_contributor=true`:
-        `/get/platform/users`
+        let url=payload?.isContributor?`/get/platform/users?is_contributor=true&page_no=${payload.page_no}`:
+        `/get/platform/users?page_no=${payload.page_no}`
       let result = await instance.get(url);
       dispatch(getPlatformUsersDataSuccess(result?.data));
       console.log("first ", result?.data);
@@ -40,6 +40,7 @@ export function getPlatformUsersDetails(isContributor) {
       state.PlatformUsersData=payload?.data?.results;
       state.isLoading = false;
       state.ErrorMessage = null;
+      state.total_pages=payload?.data?.total_pages;
     },
     getPlatformUsersDataFailure: (state, { paylaod }) => {
       state.ErrorMessage = paylaod;

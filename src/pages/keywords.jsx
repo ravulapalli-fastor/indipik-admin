@@ -15,6 +15,8 @@ import style from "../styles/Table.module.css";
 import chevronRight from "../assets/chevron-down.svg";
 import { useDispatch, useSelector } from 'react-redux'
 import { addkeywords, deletekeyword, getkeywords } from '../redux/slice/kewords'
+import ResponsivePagination from 'react-responsive-pagination';
+import 'react-responsive-pagination/themes/classic.css';
 
 export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);
@@ -22,7 +24,8 @@ export default function index() {
   const [idSelected,setIdSelected]=useState(null);
   const [newKeywordsAdded,setNewKeywordsAdded]=useState([]);
   const tableHeaders=["S.No","Name","Creator Name","Created On","Action"];
-  const {KeywordData}=useSelector((state)=>state.keywordReducer);
+  const {KeywordData,pages}=useSelector((state)=>state.keywordReducer);
+  const [currentPage,setCurrentPage]=useState(1);
   const dispatch=useDispatch();
   const [selectedData,setSelectedData]=useState(null);
 
@@ -39,9 +42,10 @@ export default function index() {
   }
 
   useEffect(()=>{
-    const payload={page_no:1};
+    const payload={page_no:currentPage};
     dispatch(getkeywords(payload))
-  },[]);
+  },[currentPage]);
+  console.log(currentPage)
   
   return (
     <div className={styles.outerContainer}>
@@ -63,10 +67,9 @@ export default function index() {
             </thead>
             <tbody>
               {KeywordData?.map((item,index)=>{
-                serialNo+=1;
                 return(
               <tr>
-                <td>{serialNo}</td>
+                <td>{(currentPage-1)*10+(index+1)}</td>
                 <td>{item?.name}</td>
                 <td>{item?.admin?.name}</td>
                 <td>{new Date(+item?.created_at).toLocaleDateString('en-IN')}</td>
@@ -84,6 +87,16 @@ export default function index() {
           </table>  
         </div>       
       </div>
+      {pages>1 && 
+        <div className={'paginationContainer'}>
+        {" "}
+        <ResponsivePagination
+        current={currentPage}
+        total={pages}
+        onPageChange={setCurrentPage}
+       />
+       </div>
+      }
      </PageLayout>
     {/* {isModalOpen && 
     <Modal 

@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import TopBar from '../components/common/TopBar/TopBar';
 import chevronRight from "../assets/chevron-down.svg";
+import ResponsivePagination from 'react-responsive-pagination';
+import 'react-responsive-pagination/themes/classic.css';
 
 export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);
@@ -56,7 +58,17 @@ export default function index() {
               </tr>
             </tbody>
           </table>  
-        </div>     
-      </PageLayout>
+        </div> 
+      {/* {pages>1 && 
+        <div className={'paginationContainer'}>
+        {" "}
+        <ResponsivePagination
+        current={currentPage}
+        total={pages}
+        onPageChange={setCurrentPage}
+       />
+       </div>
+      }       */}
+    </PageLayout>
   )
 }
