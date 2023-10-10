@@ -19,6 +19,7 @@
     font-weight: 400;
     line-height: 140%;
     letter-spacing: -0.1px;
+    text-transform: capitalize;
 }
 .flexContainer img{
     width:24px;
@@ -63,6 +64,7 @@
     border-radius: 5px;
     padding: 10px;
     gap: 10px;
+    text-transform: capitalize;
 }
 .active{
   background: #FFEAD2;

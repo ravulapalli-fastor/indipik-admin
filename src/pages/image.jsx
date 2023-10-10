@@ -19,7 +19,7 @@ export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);
   const [idSelected,setIdSelected]=useState("");
   const [filterSelected,setFilterSelected]=useState('InReview');
-  const [selectedOption,setSelectedOption]=useState('Reject');
+  const [selectedOption,setSelectedOption]=useState('');
   const {fileData,singleFileDetails,total_pages}=useSelector((state)=>state.fileReducer);
   const [rejectedReasons,setRejectedReasons]=useState([]);
   const [titleOptionSelected,setTitleOptionSelected]=useState('InReview');
@@ -134,9 +134,9 @@ export default function index() {
     {isModalOpen && 
     <Modal 
     goBackText='Details'
-    goBackBtnClick={()=>{setIsModalOpen(false);setIdSelected("")}}
-    isFooterCta={selectedOption!=='Pending'&&filterSelected!=='Approved'}
-    onSubmitCta={selectedOption!=='Pending' && handleFileApproveReject}
+    goBackBtnClick={()=>{setIsModalOpen(false);setIdSelected("");setRejectedReasons([])}}
+    isFooterCta={selectedOption!=='Inreview'}
+    onSubmitCta={handleFileApproveReject}
     >
       <div className={styles.modalDetails}>
         <p className={styles.title}>Preview</p>
@@ -206,11 +206,18 @@ export default function index() {
           <p className={styles.title}>Status</p>
           <FilterDropdown 
           isFilter={false}
-          options={["Reject","Approved","Pending"]}
+          options={["Reject","Approved","Inreview"]}
           setSelectedOption={setSelectedOption}
-          selectedOption={selectedOption}
+          selectedOption={singleFileDetails?.status}
           />
-          {selectedOption=='Reject' ?
+        </div>
+        :
+        <div className={styles.removeContainer}>
+          <p className={styles.title}>Reject</p>
+          <button onClick={()=>setSelectedOption('Reject')}>Reject</button>
+        </div>
+        }
+        {selectedOption=='Reject' ?
           <div className={styles.rejectReasonContainer}>
            {rejectedReasons?.map((reason,i)=>(
             <p className={styles.reason} key={i}>{reason}</p>
@@ -231,13 +238,6 @@ export default function index() {
            </div>
           </div>
           :''}
-        </div>
-        :
-        <div className={styles.removeContainer}>
-          <p className={styles.title}>Remove</p>
-          <button onClick={handleRemove}>Remove</button>
-        </div>
-      }
       </div>
     </Modal>
     }
