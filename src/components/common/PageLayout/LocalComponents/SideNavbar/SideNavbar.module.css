@@ -3,6 +3,7 @@
     height:100vh;
     overflow-y:auto;
     border-right: 1px solid lightgray;
+    background: #fff;
 }
 .logoImage{
     width:122px;

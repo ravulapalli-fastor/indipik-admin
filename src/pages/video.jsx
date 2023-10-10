@@ -81,7 +81,7 @@ export default function index() {
   useEffect(()=>{
     idSelected!="" && dispatch(getSingleFileDetails({
       type:'VIDEO',
-      status:filterSelected?.toLocaleUpperCase(),
+      status:filterSelected=="InReview"?'INREVIEW':'PUBLISHED',
       media_id:Number(idSelected)
     }));
   },[idSelected]);

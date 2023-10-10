@@ -99,7 +99,7 @@ export const fileKeywordRemove=(payload)=>{
   return async (dispatch)=>{
     dispatch(getfileDetailsData());
     try{
-      let result = await instance.put('/file/remove',payload);
+      let result = await instance.post('/remove/file/keyword',payload);
       console.log(result,"file approve data")
     }catch (error) {
       const message = error.response?.data?.message || "Something went wrong";

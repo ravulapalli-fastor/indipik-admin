@@ -11,7 +11,7 @@ import previewImg from "../assets/preview.svg";
 import crossImg from "../assets/cross.svg";
 import TopBar from '../components/common/TopBar/TopBar'
 import { useDispatch, useSelector } from 'react-redux'
-import { fileApprove, fileRemove, getFileDetails, getInReviewFileDetails, getSingleFileDetails } from '../redux/slice/file_details'
+import { fileApprove, fileKeywordRemove, fileRemove, getFileDetails, getInReviewFileDetails, getSingleFileDetails } from '../redux/slice/file_details'
 import ResponsivePagination from 'react-responsive-pagination';
 import 'react-responsive-pagination/themes/classic.css';
 
@@ -56,6 +56,14 @@ export default function index() {
     setIsModalOpen(false);
     dispatch(getFileDetails(payload))
   };
+
+  const handleKeywordRemove=(id)=>{
+    const payload={
+      'media_id':singleFileDetails?.id,
+      'keyword_id':id
+    }
+    dispatch(fileKeywordRemove(payload))
+  }
 
   useEffect(()=>{
     setCurrentPage(1);
@@ -186,7 +194,9 @@ export default function index() {
             {singleFileDetails?.media_keywords?.map((item,index)=>(
             <div className={styles.tab} key={index}>
               <p>{item?.keyword?.name}</p>
-              <Image src={crossImg} alt="" width={24} height={24}/>
+              <Image src={crossImg} alt="" width={24} height={24}
+              onClick={()=>handleKeywordRemove(item?.keyword?.id)}
+              />
             </div>
             ))}
           </div>

@@ -46,7 +46,8 @@ const dashboardTitle=[
   {'key':'totalDownload',
    'title':'Total Download'
   }
-]
+];
+
 const getDashboardTitle=(key)=>{
    return dashboardTitle?.find(data=>data.key==key)?.title
 };

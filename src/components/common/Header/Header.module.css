@@ -5,6 +5,7 @@
     justify-content: flex-end;
     position:relative;
     border-bottom: 1px solid lightgray;
+    background: #fff;
 }
 .profileContainer{
     display:flex;
