@@ -10,7 +10,7 @@ import Modal from '../components/Modal/Modal'
 import deleteImg from "../assets/delete.svg";
 import FilterDropdown from '../components/FilterDropdown/FilterDropdown'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPlatformUsersDetails } from '../redux/slice/platform_users'
+import { contributorStatus, getPlatformUsersDetails } from '../redux/slice/platform_users'
 import ResponsivePagination from 'react-responsive-pagination';
 import 'react-responsive-pagination/themes/classic.css';
 
@@ -27,6 +27,12 @@ export default function index() {
   const dispatch=useDispatch();
   const [currentPage,setCurrentPage]=useState(1);
 
+  const handleActiveSuspend=()=>{
+     dispatch(contributorStatus({
+      'user_id':idSelected,
+      'status':selectedOption.toLocaleUpperCase()
+     }))
+  }
   useEffect(()=>{
     setCurrentPage(1);
     const payload={
@@ -98,7 +104,7 @@ export default function index() {
                   <Image src={chevronRight} alt="" width={50} height={50} 
                   onClick={()=>{
                   setIsModalOpen(true);
-                  // setIdSelected(item?.id);
+                  setIdSelected(data?.id);
                   setDataSelected(data);
                   }}
                   />
@@ -124,7 +130,8 @@ export default function index() {
     <Modal 
     goBackText='Details'
     goBackBtnClick={()=>{setIsModalOpen(false);setIdSelected("")}}
-    isFooterCta={false}
+    isFooterCta={filterSelected=='Contributors'}
+    onSubmitCta={handleActiveSuspend}
     >
       <div className={styles.modalDetails}>
         <div className={styles.fileDetails}>

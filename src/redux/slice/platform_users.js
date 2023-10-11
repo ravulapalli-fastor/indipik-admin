@@ -26,6 +26,21 @@ export function getPlatformUsersDetails(payload) {
   };
 }
 
+export function contributorStatus(payload) {
+  return async (dispatch) => {
+    dispatch(getPlatformUsersData());
+    try {
+        let url=`/change/user/status`;
+      let result = await instance.post(url,payload);
+      // dispatch(getPlatformUsersDataSuccess(result?.data));
+      console.log("change status ", result?.data);
+    } catch (error) {
+      const message = error.response?.data?.message || "Something went wrong";
+      dispatch(getPlatformUsersDataFailure(message));
+    }
+  };
+}
+
 
   export const PlatformUsersSlice=createSlice({
     name:'PlatformUsers',

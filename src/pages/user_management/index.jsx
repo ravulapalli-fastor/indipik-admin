@@ -9,8 +9,11 @@ import TopBar from '../../components/common/TopBar/TopBar';
 import chevronRight from "../../assets/chevron-down.svg";
 import ResponsivePagination from 'react-responsive-pagination';
 import 'react-responsive-pagination/themes/classic.css';
-import { getUserManagementRoleDetails } from '../../redux/slice/user_management';
+import { getUserManagementDetails, getUserManagementRoleDetails } from '../../redux/slice/user_management';
 import RoleDetailsModel from './LocalComponents/RoleDetailsModel';
+import AddNewRole from './LocalComponents/AddNewRole';
+import UserDetailsModel from './LocalComponents/UserDetailsModal';
+import AddNewUser from './LocalComponents/AddNewUser';
 
 export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);
@@ -23,13 +26,14 @@ export default function index() {
   const {UserManagementData,RoleManagementData,total_pages}=useSelector(s=>s.userManagementReducer);
   const [currentPage,setCurrentPage]=useState(1);
   const [dataSelected,setDataSelected]=useState(null);
+  const [isAddNewModal,setIsAddNewModal]=useState(false)
 
 
   const dispatch=useDispatch();
   useEffect(()=>{
     filterSelected!='Users' ?
      dispatch(getUserManagementRoleDetails())
-     :''
+     :dispatch(getUserManagementDetails());
   },[filterSelected]);
 
   return (
@@ -41,6 +45,7 @@ export default function index() {
        titleOptions={["Users","Roles"]}
        filterSelected={filterSelected}
        isAddButton={true}
+       setIsAddNewModal={setIsAddNewModal}
       /> 
         <div className={style.tableContainer}>
           <table>
@@ -53,21 +58,24 @@ export default function index() {
             </thead>
             <tbody>
               {filterSelected=='Users'?
+              UserManagementData?.map((data,index)=>(
               <tr>
-                <td>1</td>
-                <td>Aryan Sharma</td>
-                <td>April 20, 2023</td>
-                <td>10</td>
-                <td className={style.status}>Active</td>
+                <td>{(currentPage-1)*10+(index+1)}</td>
+                <td>{data?.name}</td>
+                <td>{data?.email}</td>
+                <td>{data?.admin_permissions?.[0]?.role?.name}</td>
+                <td className={style.status}>{data?.status?.toLocaleLowerCase()}</td>
                 <td >
                   <Image src={chevronRight} alt="" width={50} height={50} 
                   onClick={()=>{
                   setIsModalOpen(true);
-                  setIdSelected(0)
+                  setIdSelected(data?.id);
+                  setDataSelected(data)
                   }}
                   />
                 </td>
               </tr>
+              ))
               :
               RoleManagementData?.map((data,index)=>(
               <tr>
@@ -102,13 +110,28 @@ export default function index() {
     </PageLayout>
     {isModalOpen ?
     filterSelected=='Users'
-    ?''
+    ?<UserDetailsModel
+     setIdSelected={setIdSelected}
+     setIsModalOpen={setIsModalOpen}
+     data={dataSelected}
+    />
     :<RoleDetailsModel
      setIdSelected={setIdSelected}
      setIsModalOpen={setIsModalOpen}
      data={dataSelected}
     />
     :''
+    }
+    {
+      isAddNewModal?
+      filterSelected=='Users'?
+      <AddNewUser
+      setIsAddNewModal={setIsAddNewModal}
+      />
+      :<AddNewRole 
+      setIsAddNewModal={setIsAddNewModal}
+      />
+      :''
     }
   </div>
   )

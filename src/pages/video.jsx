@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getFileDetails, getSingleFileDetails } from '../redux/slice/file_details'
 import ResponsivePagination from 'react-responsive-pagination';
 import 'react-responsive-pagination/themes/classic.css';
+import ConfirmationPopup from '../components/common/ConfirmationPopup/ConfirmationPopup'
 
 export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);
@@ -23,7 +24,8 @@ export default function index() {
   const [rejectedReasons,setRejectedReasons]=useState([]);
   const [currentPage,setCurrentPage]=useState(1);
   const [reason,setReason]=useState('');
-
+  const [isConfimationModal,setIsConfirmationModal]=useState(false);
+  
   const dispatch=useDispatch();
   const handleFileApproveReject=()=>{
     const payload=selectedOption=='Reject'?
@@ -121,7 +123,11 @@ export default function index() {
     goBackText='Details'
     goBackBtnClick={()=>{setIsModalOpen(false);setIdSelected("");setRejectedReasons([])}}
     isFooterCta={selectedOption!=='Inreview'}
-    onSubmitCta={handleFileApproveReject}
+    onSubmitCta={()=>{
+      selectedOption=='Reject'?
+      setIsConfirmationModal(true)
+      :handleFileApproveReject()
+    }}    
     >
       <div className={styles.modalDetails}>
         <p className={styles.title}>Preview</p>
@@ -222,6 +228,14 @@ export default function index() {
         </div>
       </div>
     } */}
+      {
+      isConfimationModal && 
+      <ConfirmationPopup
+      setConfirmationModalOpen={setIsConfirmationModal}
+      type='Video'
+      handleRemove={handleFileApproveReject}
+      />
+    }
     </div>
   )
 }

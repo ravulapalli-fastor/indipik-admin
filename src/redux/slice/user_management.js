@@ -15,7 +15,7 @@ export function getUserManagementDetails() {
   return async (dispatch) => {
     dispatch(getUserManagementData());
     try {
-      let result = await instance.get(`/get/details`);
+      let result = await instance.get(`/details`);
       dispatch(getUserManagementDataSuccess(result?.data));
       console.log("first ", result?.data);
     } catch (error) {
@@ -39,6 +39,48 @@ export function getUserManagementRoleDetails() {
   };
 }
 
+export function addNewRole() {
+  return async (dispatch) => {
+    dispatch(getUserManagementData());
+    try {
+      let result = await instance.get(`/get/role/details`);
+      dispatch(getUserManagementRoleSuccess(result?.data));
+      console.log("first ", result?.data);
+    } catch (error) {
+      const message = error.response?.data?.message || "Something went wrong";
+      dispatch(getUserManagementDataFailure(message));
+    }
+  };
+}
+
+export function addNewUser(payload) {
+  return async (dispatch) => {
+    dispatch(getUserManagementData());
+    try {
+      let result = await instance.post(`/add/new/admin`,payload);
+      dispatch(getUserManagementDetails());
+      console.log("first ", result?.data);
+    } catch (error) {
+      const message = error.response?.data?.message || "Something went wrong";
+      dispatch(getUserManagementDataFailure(message));
+    }
+  };
+}
+
+export function userStatus(payload) {
+  return async (dispatch) => {
+    dispatch(getUserManagementData());
+    try {
+        let url=`/change/admin/status`;
+      let result = await instance.post(url,payload);
+      // dispatch(getPlatformUsersDataSuccess(result?.data));
+      console.log("change status ", result?.data);
+    } catch (error) {
+      const message = error.response?.data?.message || "Something went wrong";
+      dispatch(getUserManagementDataFailure(message));
+    }
+  };
+}
 
   export const UserManagementSlice=createSlice({
     name:'UserManagement',
@@ -50,7 +92,7 @@ export function getUserManagementRoleDetails() {
     },
     getUserManagementDataSuccess: (state, { payload }) => {
       console.log(payload,'payload')
-      state.UserManagementData=payload?.data;
+      state.UserManagementData=payload?.data?.results;
       state.isLoading = false;
       state.ErrorMessage = null;
       state.total_pages=payload?.total_pages

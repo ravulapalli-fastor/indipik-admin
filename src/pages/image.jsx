@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fileApprove, fileKeywordRemove, fileRemove, getFileDetails, getInReviewFileDetails, getSingleFileDetails } from '../redux/slice/file_details'
 import ResponsivePagination from 'react-responsive-pagination';
 import 'react-responsive-pagination/themes/classic.css';
+import ConfirmationPopup from '../components/common/ConfirmationPopup/ConfirmationPopup'
 
 export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);
@@ -25,6 +26,8 @@ export default function index() {
   const [titleOptionSelected,setTitleOptionSelected]=useState('InReview');
   const [isFullPreview,setIsFullPreview]=useState(false);
   const [currentPage,setCurrentPage]=useState(1);
+  const [isConfimationModal,setIsConfirmationModal]=useState(false);
+
 
   const [reason,setReason]=useState('');
 
@@ -136,7 +139,11 @@ export default function index() {
     goBackText='Details'
     goBackBtnClick={()=>{setIsModalOpen(false);setIdSelected("");setRejectedReasons([])}}
     isFooterCta={selectedOption!=='Inreview'}
-    onSubmitCta={handleFileApproveReject}
+    onSubmitCta={()=>{
+      selectedOption=='Reject'?
+      setIsConfirmationModal(true)
+      :handleFileApproveReject()
+    }}
     >
       <div className={styles.modalDetails}>
         <p className={styles.title}>Preview</p>
@@ -249,6 +256,14 @@ export default function index() {
           <Image className={styles.mainImg} src={singleFileDetails?.media_formats?.find((x)=>x.file_type=="ORIGINAL")?.url} alt="" width={1000} height={500}/>
         </div>
       </div>
+    }
+    {
+      isConfimationModal && 
+      <ConfirmationPopup
+      setConfirmationModalOpen={setIsConfirmationModal}
+      type='Image'
+      handleRemove={handleFileApproveReject}
+      />
     }
     </div>
   )

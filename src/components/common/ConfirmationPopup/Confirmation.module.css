@@ -1,0 +1,63 @@
+.container{
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap:1.5rem;
+    padding: 24px;
+    border-radius: 12px;
+    background: var(--White, #FFF);
+    box-shadow: 0px 8px 8px -4px rgba(16, 24, 40, 0.03), 0px 20px 24px -4px rgba(16, 24, 40, 0.08);
+}
+.container img{
+    width: 48px;
+    height: 48px;
+}
+.container h3{
+    color: var(--gray-900, #101828);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px;
+}
+.container p{
+    color: var(--gray-500, #667085);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+.container .btnContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+.btnContainer button{
+    display: flex;
+    padding: 10px 18px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 164px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    border-radius: 8px;
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+.cancelBtn{
+    border: 1px solid var(--gray-300, #D0D5DD);
+    background: var(--White, #FFF);
+    color: var(--gray-700, #344054);
+}
+.removeBtn{
+    border: 1px solid var(--error-600, #D92D20);
+    background: var(--error-600, #D92D20);
+    color:white;
+}

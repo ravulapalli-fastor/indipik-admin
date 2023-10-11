@@ -7,8 +7,9 @@ import chevronDown from "../../assets/chevron-down.svg";
 const FilterDropdown = ({
   isFilter=true,
   options=[],
-  selectedOption="Filter",
-  setSelectedOption=()=>{}
+  selectedOption="Select Filter",
+  setSelectedOption=()=>{},
+  data=[]
 }) => {
   const [isDropdown,setIsDropdown]=useState(false);
   const [option,setOption]=useState(selectedOption)
@@ -25,7 +26,8 @@ const FilterDropdown = ({
     {isDropdown && 
     <div className={styles.dropdownWrapper}>
       <div className={styles.dropdown}>
-        {options?.map((ele,i)=>(
+        {data?.length==0?
+        options?.map((ele,i)=>(
           <div key={i}
           className={`${styles.defaultOption} ${selectedOption?.toLowerCase()==ele?.toLowerCase()?styles.active:''}`} 
           onClick={()=>{
@@ -36,6 +38,20 @@ const FilterDropdown = ({
           }
           >
             {ele}
+          </div>
+         ))
+          :
+          data?.map((e,i)=>(
+          <div key={i}
+          className={`${styles.defaultOption} ${selectedOption==e?.id?styles.active:''}`} 
+          onClick={()=>{
+            setSelectedOption(e.id);
+            setIsDropdown(false);
+            setOption(e.name)
+          }
+          }
+          >
+            {e.name}
           </div>
         ))}
       </div>

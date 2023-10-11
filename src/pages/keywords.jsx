@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addkeywords, deletekeyword, getkeywords } from '../redux/slice/kewords'
 import ResponsivePagination from 'react-responsive-pagination';
 import 'react-responsive-pagination/themes/classic.css';
+import ConfirmationPopup from '../components/common/ConfirmationPopup/ConfirmationPopup'
 
 export default function index() {
   const [isModalOpen,setIsModalOpen]=useState(false);
@@ -28,6 +29,7 @@ export default function index() {
   const [currentPage,setCurrentPage]=useState(1);
   const dispatch=useDispatch();
   const [selectedData,setSelectedData]=useState(null);
+  const [isConfimationModal,setIsConfirmationModal]=useState(false);
 
   let serialNo=0;
 
@@ -36,9 +38,8 @@ export default function index() {
     .then((res)=>setIsAddNewModal(false));
   }
 
-  const handleKeywordDelete=(id)=>{
-    console.log()
-    dispatch(deletekeyword(id))
+  const handleKeywordDelete=()=>{
+    dispatch(deletekeyword(idSelected))
   }
 
   useEffect(()=>{
@@ -76,7 +77,9 @@ export default function index() {
                 <td >
                   <Image src={deleteImg} alt="" width={50} height={50} 
                   onClick={()=>{
-                   handleKeywordDelete(item?.id)
+                   setIsConfirmationModal(true);
+                   setIdSelected(item?.id);
+                  //  handleKeywordDelete(item?.id)
                   }}
                   style={{transform:'unset'}}
                   />
@@ -159,6 +162,14 @@ export default function index() {
           </div>
         </div>
       </Modal>
+    }
+    {
+      isConfimationModal && 
+      <ConfirmationPopup
+      setConfirmationModalOpen={setIsConfirmationModal}
+      type='Keyword'
+      handleRemove={handleKeywordDelete}
+      />
     }
     </div>
   )
