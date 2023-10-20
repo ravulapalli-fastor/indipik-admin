@@ -129,11 +129,6 @@ const index = () => {
             hello
             </>
           )}
-          <div className={style.login_signin_button_and_mode_container}>
-            <Link href={`/register`}>
-            Create a new account
-           </Link>
-          </div>
         </div>
       </div>
   </div>
